@@ -17,6 +17,7 @@ class CreateAppliedGuidesTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->unsignedInteger('guide_id');
+
         });
     }
 

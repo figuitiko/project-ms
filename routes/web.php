@@ -28,3 +28,5 @@ Route::resource('/admin/replies','ReplyController');
 Route::resource('/admin/quizzed','QuizzedController');
 Route::delete('question/delete/{id}', 'QuestionController@destroy');
 Route::resource('/admin/enterprise','EnterpriseController');
+
+Route::get('/admin/applied-guide', 'AppliedGuideController@index')->name('applied.index');

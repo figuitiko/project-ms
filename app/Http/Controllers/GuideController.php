@@ -60,6 +60,8 @@ class GuideController extends Controller
 
 //        $this->validate($request, ['description' => 'required|min:3']);
 
+
+
         try {
             DB::beginTransaction();
             $guide= new Guide();

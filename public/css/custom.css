@@ -8,3 +8,10 @@ hr.style-four {
 .visible-msg{
     visibility: hidden;
 }
+.error{
+    color:red;
+}
+.border-survey{
+    border: 1px solid cadetblue;
+    height: 50px;
+}

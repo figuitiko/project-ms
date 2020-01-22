@@ -45,6 +45,7 @@ $(document).ready(function () {
                 form.submit();
             }
         });
+
     };
     validator('demo-form2');
 })

@@ -1,22 +1,22 @@
 @extends('layouts.app')
 @section('titulo')
-    Nueva Guia
+    Editar Respuesta
 @endsection
 
 @section('content')
     <div class="card card-register mx-auto mt-5">
-        <div class="card-header">Crear una Respuesta</div>
+        <div class="card-header">Editar un producto</div>
         <div class="card-body">
-            @if(Session::has('menssage'))
+            @if(Session::has('message'))
                 <div class="alert alert-success" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                    {{ Session::get('menssage') }}
+                                aria-hidden="true">&times;</span></button>
+                    {{ Session::get('message') }}
                 </div>
             @endif
             <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post"
-                  action="{{route('replies.store') }}">
-                {{csrf_field()}}
+                  action="{{route('replies.update',$reply) }}">
+                {{csrf_field()}} {{ method_field('PUT') }}
                 @if (count($errors) > 0)
                     <div class="alert alert-danger">
                         <ul>
@@ -26,13 +26,11 @@
                         </ul>
                     </div>
                 @endif
-
-
                 <div class="form-group">
-                    <label class="control-label">Contenido </label>
+                    <label class="control-label">Contenido de la respuesta </label>
                     <div class="form-label-group">
-                        {{--                        <input type="text" id="inventario" name="inventario" class=" form-control"  autofocus value="{{ old('inventario') }}">--}}
-                        <textarea class="form-control" name="content">{{old('content')}}</textarea>
+                        <input type="text" id="content" name="content" value="{{$reply->content}}"
+                                class=" form-control" autofocus>
                     </div>
                 </div>
                 <div class="form-group">

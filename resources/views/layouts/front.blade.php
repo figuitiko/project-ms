@@ -73,19 +73,14 @@
     </div>
 </header>
 
-<!-- Page Content -->
-<section class="py-5">
-    @yield('content')
-{{--    <div class="container">--}}
-{{--        <h2 class="font-weight-light">Page Content</h2>--}}
-{{--        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus ab nulla dolorum autem nisi officiis blanditiis voluptatem hic, assumenda aspernatur facere ipsam nemo ratione cumque magnam enim fugiat reprehenderit expedita.</p>--}}
-{{--    </div>--}}
-</section>
+
 <!-- Bootstrap core JavaScript-->
 <script src="{{ asset('js/jquery.min.js') }}"></script>
 <script src="{{ asset('js/jquery.slim.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('js/jquery-validator.js') }}"></script>
 <script src="{{ asset('js/modal.js') }}"></script>
+
 
 
 @stack('scripts')

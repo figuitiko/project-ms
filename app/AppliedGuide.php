@@ -11,7 +11,7 @@ class AppliedGuide extends Model
         return $this->hasOne(Enterprise::class);
     }
     public function quizzeds(){
-        return $this->hasMany(AppliedGuide::class);
+        return $this->belongsTo(AppliedGuide::class);
     }
     public function guide(){
         return $this->belongsTo(Guide::class);

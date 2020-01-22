@@ -5,7 +5,7 @@
 
 @section('content')
     <div class="card card-register mx-auto mt-5">
-        <div class="card-header">Crear una Respuesta</div>
+        <div class="card-header">Registrar un Accesorio</div>
         <div class="card-body">
             @if(Session::has('menssage'))
                 <div class="alert alert-success" role="alert">

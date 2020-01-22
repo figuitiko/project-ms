@@ -111,26 +111,6 @@ class GuidesTableSeeder extends Seeder
         $applied_guide->guide_id = 1;
         $applied_guide->save();
 
-        $given_reply= new GivenReply();
-        $given_reply->question_id = 1;
-        $given_reply->reply_id = 1;
-        $given_reply->applied_guide_id = 1;
-        $given_reply->save();
-
-        $given_reply= new GivenReply();
-        $given_reply->question_id = 1;
-        $given_reply->reply_id = 1;
-        $given_reply->applied_guide_id = 1;
-        $given_reply->save();
-
-        $given_reply= new GivenReply();
-        $given_reply->question_id = 1;
-        $given_reply->reply_id = 1;
-        $given_reply->applied_guide_id = 1;
-        $given_reply->save();
-
-
-
         $quizzed =new Quizzed();
         $quizzed->enterprise_id = 1;
         $quizzed->applied_guide_id = 1;
@@ -140,5 +120,32 @@ class GuidesTableSeeder extends Seeder
         $quizzed->age=35;
         $quizzed->studies = 'universitario';
         $quizzed->save();
+
+
+
+
+        $applied_guide->save();
+
+        $given_reply= new GivenReply();
+        $given_reply->question_id = 1;
+        $given_reply->reply_id = 1;
+        $given_reply->applied_guide_id = 1;
+        $given_reply->save();
+
+        $given_reply= new GivenReply();
+        $given_reply->question_id = 1;
+        $given_reply->reply_id = 1;
+        $given_reply->applied_guide_id = 1;
+        $given_reply->save();
+
+        $given_reply= new GivenReply();
+        $given_reply->question_id = 1;
+        $given_reply->reply_id = 1;
+        $given_reply->applied_guide_id = 1;
+        $given_reply->save();
+
+
+
+
     }
 }

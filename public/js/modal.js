@@ -1,39 +1,57 @@
-window.onload = function() {
-    document.getElementById('button').onclick = function() {
+$(document).ready(function () {
+    $('#btn-surveyed-next').on('click' ,function (e) {
+        e.preventDefault();
+        $('#user-data').appendTo('#last-class');
+        $('#user-data').addClass('visible-msg');
 
-        document.getElementById('modalOverlay').style.display = 'none';
-        var token = $(this).data("token");
-        $.ajax(
-            {
-                url: baseUrl+"/admin/guide/"+guide['id'],
-                type: 'PUT',
-                dataType: "JSON",
-                data: {
-                    "_method": 'PUT',
-                    "_token": token,
-                    "is_activated":active,
-                    "active_enterprise": $("#enterprise-active option:selected").val()
-                },
-                success: function (result)
-                {
-                    console.log("it Work");
-                    console.log(result);
-                    $('#modal-activated').modal('toggle');
+    })
 
-                    if(active == true){
-                        $('#activate-msg').removeClass('visible-msg');
-                    }
-                    else{
-                        $('#activate-msg').addClass('visible-msg');
-                    }
-                    setTimeout(function(){  window.location.href = baseUrl+"admin/guide/"; }, 3000);
+    function validatorFront(myForm) {
+
+        // Initialize form validation on the registration form.
+        // It has the name attribute "registration"
 
 
-                    // $(button).parent('div').parent('div').remove();
+        $('#'+myForm).validate({
 
-                },
+            // Specify validation rules
+            rules: {
+                // The key name on the left side is the name attribute
+                // of an input field. Validation rules are defined
+                // on the right side
+                name: "required",
+                last_name: "required",
+                job: "required",
+                age: "required",
+                studies: "required"
+            },
+            // Specify validation error messages
+            messages: {
+                name: "Por favor ponga el nombre ",
+                last_name: "Por favor ponga los apellidos",
+                job: "Debe introducir la ocupacion",
+                age:"Debe instroducir la edad d",
+                studies: "Debe introducir los estudios",
+
+            },
+            // Make sure the form is submitted to the destination defined
+            // in the "action" attribute of the form when valid
+            submitHandler: function(form) {
+                form.submit();
             }
-            )
+        });
+        $('.form-check-input').each(function() {
+            $(this).rules('add', {
+                required: true,
+                messages: {
+                    required: "el campo es requerido",
+
+                }
+            });
+        });
 
     };
-};
+    validatorFront('surveyed-form-2');
+
+
+})

@@ -1,28 +1,20 @@
 @extends('layouts.front')
     @section('header')
-
-        <div id="modalOverlay">
-            <div class="modalPopup">
-                <div class="headerBar">
-                    <img src="https://placehold.it/200x25/edcb04/333333/?text=LOGO" alt="Logo">
-                </div>
-                <div class="modalContent">
-                    <h1>Modal window title here</h1>
-                    <p>Modal appears on page load, presents information and is dismissed after the "Close" button is clicked. Styled modal messaging, images and other information here.</p>
-                    <button class="buttonStyle" id="button" data-token="{{ csrf_token() }}>Close</button>
-                </div>
-            </div>
-        </div>
         <h1>Guias Norma 35</h1>
-        <h2 class="text-center">Datos del encuestado</h2>
-        <form id="surveyed-form">
+
+        <form id="surveyed-form-2" method="post" action="{{route('save.guide')}}" >
+            {{csrf_field()}}
+            <div id="user-data">
+                <h2 class="text-center">Datos del encuestado</h2>
+                <input type="hidden" name="guide_id" value="{{$guide->id}}">
+                <input type="hidden" name="enterprise_id" value="{{$guide->active_enterprise_id}}">
             <div class="form-group">
                 <label for="exampleFormControlInput1">Nombre Encuestado</label>
-                <input type="text" class="form-control" id="surveyedName" name="surveyedName" placeholder="Nombres">
+                <input type="text" class="form-control" id="name" name="name" placeholder="Nombres">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Apellidos</label>
-                <input type="text" class="form-control" id="surveyedLastName" name="surveyedLastName" placeholder="Apellidos">
+                <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Apellidos">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Ocupación</label>
@@ -37,40 +29,46 @@
                 <textarea class="form-control" id="studies" name="studies" rows="3"></textarea>
             </div>
             <div class="form-group">
-                <button type="submit"  style="float: right" id="btn-surveyed-next" class="btn btn-success">Guardar</button>
+                <button type="button"  style="float: right" id="btn-surveyed-next" class="btn btn-success">Guardar</button>
             </div>
-        </form>
+            </div>
 
             <div class="clearfix"></div>
             <div class="col-12 text-center">
                 <h2>Questionario</h2>
             </div>
-            <div class="col-12 ">
+            <div id="last-class">
                 <div class="row">
 
 
                     @foreach($guide->questions as $question)
-                    <div class="col-md-4">
+                    <div class="col-md-12 border-survey">
                         <fieldset id="group{{++$counter}}">
+                            <div class="row">
+                            <div class="col-md-4  ">
                         <label for="exampleFormControlTextarea1">{{$counter}}-{{$question->content}}</label>
                             <?php $i=1?>
+                            </div>
 
-
+                        <div class="col-md-8 ">
                         @foreach($replies as $reply)
 
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="group{{$counter}}" id="group{{$counter}}" value="option{{++$i}}" >
+                                <div class="custom-control custom-radio custom-control-inline">
+
                                 <label class="form-check-label" for="exampleRadios1">
                                     {{$reply->content}}
                                 </label>
-                            </div>
+
+                                <input class="form-check-input " type="radio" name="question{{$question->id}}" value="{{$reply->id}},{{$question->id}}" >
 
 
-
-
+                                </div>
                             @endforeach
+                        </div>
+                            </div>
                         </fieldset>
                     </div>
+
 
                         @if( $loop->iteration %3 == 0)
                          </div>
@@ -83,18 +81,20 @@
 
 
                             <div class="clearfix"></div>
-                <div class="row">
+                <div  class="row">
 
                         @endif
                         @endforeach
 
             </div>
+
+                <div class="form-group">
+                    <button type="submit"  style="float: right" id="btn-surveyed-send" class="btn btn-success">Enviar</button>
+                </div>
             </div>
 
+        </form>
+
 
         @endsection
-        @section('content')
 
-        @endsection
-
-</html>
