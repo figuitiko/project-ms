@@ -15,8 +15,9 @@
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/modal.css') }}" rel="stylesheet" type="text/css">
 
+
     <!-- Page level plugin CSS-->
-{{--    <link href="{{ asset('css/dataTables.bootstrap4.css') }}" rel="stylesheet">--}}
+    <link href="{{ asset('css/dataTables.bootstrap4.css') }}" rel="stylesheet">
 
 {{--    <!-- Custom styles for this template-->--}}
 {{--    <link href="{{ asset('css/sb-admin.css') }}" rel="stylesheet">--}}
@@ -80,6 +81,9 @@
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('js/jquery-validator.js') }}"></script>
 <script src="{{ asset('js/modal.js') }}"></script>
+<script src="{{ asset('js/jquery.dataTables.js') }}"></script>
+<script src="{{ asset('js/dataTables.bootstrap4.js') }}"></script>
+<script src="{{ asset('js/datatables-demo.js') }}"></script>
 
 
 

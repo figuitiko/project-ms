@@ -9,9 +9,10 @@ hr.style-four {
     visibility: hidden;
 }
 .error{
-    color:red;
+    color:red !important;
 }
 .border-survey{
     border: 1px solid cadetblue;
     height: 50px;
 }
+

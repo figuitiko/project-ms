@@ -48,5 +48,7 @@ $(document).ready(function () {
 
     };
     validator('demo-form2');
+    validator('demo-form-enterprise')
+
 })
 

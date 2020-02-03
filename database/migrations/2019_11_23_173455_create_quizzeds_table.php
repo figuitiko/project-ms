@@ -17,7 +17,6 @@ class CreateQuizzedsTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->unsignedInteger('enterprise_id');
-            $table->unsignedInteger('applied_guide_id');
             $table->string('name');
             $table->string('last_name');
             $table->longText('job');

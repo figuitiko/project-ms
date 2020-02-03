@@ -108,7 +108,7 @@ class ReplyController extends Controller
         $reply->delete();
 
         return redirect()
-            ->route('replies.index')
+            ->route('applied.index')
             ->with('message', 'La Respuesta ha sido Eliminada');
     }
 }

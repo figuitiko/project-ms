@@ -21,12 +21,15 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('admin');
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
-//route-----guide
+//route-----guide-----------------
 
 Route::resource('/admin/guide','GuideController');
 Route::resource('/admin/replies','ReplyController');
 Route::resource('/admin/quizzed','QuizzedController');
-Route::delete('question/delete/{id}', 'QuestionController@destroy');
+Route::delete('admin/question/{id}', 'QuestionController@destroy');
+Route::put('admin/question/{question}', 'QuestionController@update');
 Route::resource('/admin/enterprise','EnterpriseController');
 
-Route::get('/admin/applied-guide', 'AppliedGuideController@index')->name('applied.index');
+Route::get('/admin/applied-guides', 'AppliedGuideController@index')->name('applied.index');
+Route::delete('/admin/applied-guides/{applied_guide}/delete', 'AppliedGuideController@destroy')->name('applied.destroy');
+Route::get('/admin/{applied_guide}/show', 'AppliedGuideController@show')->name('applied.show');

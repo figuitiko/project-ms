@@ -1,6 +1,7 @@
 @extends('layouts.front')
     @section('header')
         <h1>Guias Norma 35</h1>
+        @if($guide->is_activated)
 
         <form id="surveyed-form-2" method="post" action="{{route('save.guide')}}" >
             {{csrf_field()}}
@@ -28,12 +29,11 @@
                 <label for="exampleFormControlTextarea1">Estudios</label>
                 <textarea class="form-control" id="studies" name="studies" rows="3"></textarea>
             </div>
-            <div class="form-group">
-                <button type="button"  style="float: right" id="btn-surveyed-next" class="btn btn-success">Guardar</button>
-            </div>
+
             </div>
 
             <div class="clearfix"></div>
+            <hr class="style-four">
             <div class="col-12 text-center">
                 <h2>Questionario</h2>
             </div>
@@ -87,13 +87,50 @@
                         @endforeach
 
             </div>
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th style="width: 5%;">No </th>
+                        <th style="width: 30%;">pregunta</th>
+                        @foreach($replies as $reply)
+                        <th style="width: 5%;">{{$reply->content}}</th>
+                            @endforeach
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($guide->questions as $key => $question)
+                        <tr>
+                            <td>{{$question->id}}</td>
+                            <td>{{$question->content}}</td>
+                            @foreach($replies as $reply)
+                                <td>
 
-                <div class="form-group">
-                    <button type="submit"  style="float: right" id="btn-surveyed-send" class="btn btn-success">Enviar</button>
+                                    <input class="form-check-input " type="radio" name="question{{$question->id}}" value="{{$reply->id}},{{$question->id}}" ></td>
+                                @endforeach
+
+
+                        </tr>
+                    @endforeach
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th style="width: 5%;">No </th>
+                        <th style="width: 30%;">Contenido</th>
+                        <th style="width: 5%;"></th>
+                        <th style="width: 5%;"></th>
+                    </tr>
+                    </tfoot>
+                </table>
+
+                <div class="form-group" style="margin-top: 20px">
+                    <button type="submit"  style="float: right" id="btn-surveyed-send" class="btn btn-success btn-lg">Enviar</button>
                 </div>
             </div>
 
         </form>
+        @else
+        <h1>La guia no esta activa</h1>
+        @endif
 
 
         @endsection

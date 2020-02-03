@@ -8,10 +8,10 @@ class AppliedGuide extends Model
 {
 
     public function enterprise(){
-        return $this->hasOne(Enterprise::class);
+        return $this->belongsTo(Enterprise::class);
     }
-    public function quizzeds(){
-        return $this->belongsTo(AppliedGuide::class);
+    public function quizzed(){
+        return $this->belongsTo(Quizzed::class);
     }
     public function guide(){
         return $this->belongsTo(Guide::class);

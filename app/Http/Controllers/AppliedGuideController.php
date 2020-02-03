@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\AppliedGuide;
+use App\Enterprise;
 use App\GivenReply;
 use App\Quizzed;
 use Illuminate\Http\Request;
@@ -17,7 +18,9 @@ class AppliedGuideController extends Controller
      */
     public function index()
     {
-        //
+        $applied_guides = AppliedGuide::all();
+        $counter = 0;
+        return view('appliedguide.index',['applied_guides' => $applied_guides, 'counter' => $counter]);
     }
 
     /**
@@ -38,7 +41,6 @@ class AppliedGuideController extends Controller
      */
     public function store(Request $request)
     {
-//       dd($request->all()); exit;
 
 
         $only_guestion = array();
@@ -47,20 +49,18 @@ class AppliedGuideController extends Controller
                 $only_guestion[$key] = $value;
             }
         }
-
-//       dd($only_guestion); exit;
-
+       //dd($only_guestion); exit;
 
 
         try {
             DB::beginTransaction();
-            $applied_guide= new AppliedGuide();
-            $applied_guide->guide_id = $request->guide_id;
-            $applied_guide->save();
+            $enterprise = Enterprise::where('id',$request->enterprise_id)->first();
+            $name_enterprise = $enterprise->name;
+
+
 
             $quizzed = new Quizzed();
             $quizzed->enterprise_id = $request->enterprise_id;
-            $quizzed->applied_guide_id = $applied_guide->id;
             $quizzed->name = $request->name;
             $quizzed->last_name = $request->last_name;
             $quizzed->job = $request->job;
@@ -68,19 +68,22 @@ class AppliedGuideController extends Controller
             $quizzed->studies= $request->studies;
             $quizzed->save();
 
-
             $applied_guide= new AppliedGuide();
             $applied_guide->guide_id = $request->guide_id;
+            $applied_guide->enterprise_id = $request->enterprise_id;
+            $applied_guide->quizzed_id = $quizzed->id;
             $applied_guide->save();
-//            dd($applied_guide->id); exit;
+
 
             foreach ($only_guestion as $value)
             {
                 $question_reply = explode(",", $value);
-                $given_reply= new GivenReply();
+               // dd($question_reply);
+                $given_reply = new GivenReply();
                 $given_reply->reply_id = $question_reply[0];
                 $given_reply->question_id = $question_reply[1];
                 $given_reply->applied_guide_id = $applied_guide->id;
+                $given_reply->value = $given_reply->scopeValueByGivenReplies($question_reply[0],$question_reply[1]);
                 $given_reply->save();
             }
 
@@ -108,6 +111,8 @@ class AppliedGuideController extends Controller
     public function show(AppliedGuide $appliedGuide)
     {
         //
+        $counter=1;
+        return view('appliedguide.show', ['appliedGuide' => $appliedGuide, 'counter'=>$counter]);
     }
 
     /**
@@ -119,6 +124,7 @@ class AppliedGuideController extends Controller
     public function edit(AppliedGuide $appliedGuide)
     {
         //
+
     }
 
     /**
@@ -141,6 +147,12 @@ class AppliedGuideController extends Controller
      */
     public function destroy(AppliedGuide $appliedGuide)
     {
-        //
+        $appliedGuide->delete();
+
+        return redirect()
+            ->route('applied.index')
+            ->with('message', 'La guia  ha sido Eliminada');
     }
+
+
 }

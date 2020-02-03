@@ -29,47 +29,48 @@
                                 <th style="width: 24%;">{{$guide->guideType->name}}</th>
                             </tr>
 
-
-
-
-
-
                              </thead>
                         </table>
-                        <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive"
-                               cellspacing="0" width="100%">
 
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>Preguntas</h3>
+                                <hr>
+                            </div>
+                        </div>
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                             <tr>
-                            <th style="width: 20%;">Preguntas</th>
-{{--                            <th style="width: 24%;">Posibles Respuestas</th>--}}
+                                <th style="width: 5%;">No</th>
+                                <th style="width: 80%;">Preguntas</th>
                             </tr>
-                            @foreach($guide->questions as $question)
-                                  <tr>
-                                    <th>{{$counter++}} - {{$question->content}}</th>
-{{--                                     <th>--}}
-{{--                                        <div class="row">--}}
-{{--                                        @foreach($question->replies as $reply)--}}
-{{--                                            <div class="col-md-2">{{$reply->content}}</div>--}}
-{{--                                        @endforeach--}}
-{{--                                        </div>--}}
-{{--                                     </th>--}}
-                                 </tr>
-
-                                @endforeach
-                            <tr>
-                            <th style="width: 20%;">
-                                <a style="float: right" type="button" id="cancel" href="{{route('guide.index')}}" name="cancel"
-                                   class="btn btn-primary">Vuelva Atras</a>
-                            </th>
-                            </tr>
-
                             </thead>
-
+                            <tbody>
+                            @foreach($guide->questions as $question)
+                                <tr>
+                                    <td>{{$question->id}}</td>
+                                    <td>{{$question->content}}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <th style="width: 5%;">No</th>
+                                <th style="width: 80%;">Preguntas</th>
+                            </tr>
+                            </tfoot>
                         </table>
+
 
 
                     </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <a style="float: right" type="button" id="cancel" href="{{route('guide.index')}}" name="cancel"
+                       class="btn btn-primary">Vuelva Atras</a>
                 </div>
             </div>
         </div>

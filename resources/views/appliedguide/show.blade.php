@@ -6,74 +6,86 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 justify-content-center">
-                <div class="links">
-                    <a href="{{route('producto.createForm')}}" class="btn btn-primary">Nuevo producto</a>
-                </div>
+
                 <br>
                 <div class="card">
-                    <div class="card-header"><i class="fas fa-eye"></i> Detalle de producto</div>
+                    <div class="card-header"><i class="fas fa-eye"></i> Datos Encuesta Realizada</div>
                     <div class="card-body">
                         <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive"
                                cellspacing="0" width="100%">
                             <thead>
                             <tr>
-                                <th style="width: 20%;">Nombre</th>
-                                <th style="width: 24%;">{{$producto->nombre}}</th>
+                                <th style="width: 20%;">Nombre de la Empresa </th>
+                                <th style="width: 24%;">{{$appliedGuide->enterprise->name}}</th>
                             </tr>
                             <tr>
-                                <th style="width: 20%;">Color</th>
-                                <th style="width: 24%;">{{$producto->color->nombre}}</th>
+                                <th style="width: 20%;">Nombre del Encuestado</th>
+                                <th style="width: 24%;">{{$appliedGuide->quizzed->name}}</th>
                             </tr>
                             <tr>
-                                <th style="width: 20%;">Marca</th>
-                                <th style="width: 24%;">{{$producto->marca->nombre}}</th>
+                                <th style="width: 20%;">Numero de Guia</th>
+                                <th style="width: 24%;">{{$appliedGuide->guide->guideType->name}}</th>
                             </tr>
                             <tr>
-                                <th style="width: 20%;">Modelo</th>
-                                <th style="width: 24%;">{{$producto->modelo->nombre}}</th>
+                                <th style="width: 20%;">Fecha de Realizacion</th>
+                                <th style="width: 24%;">{{date("d/m/Y", strtotime("$appliedGuide->created_at"))}}</th>
                             </tr>
-                            <tr>
-                                <th style="width: 20%;">Medida</th>
-                                <th style="width: 24%;">{{$producto->medida->diametro_lente.'-'.
-                                                  $producto->medida->ancho_puente.'/'.$producto->medida->longitud_lateral}}
-                                </th>
-                            </tr>
-                            <tr>
-                                <th style="width: 20%;">Inventario</th>
-                                <th style="width: 24%;">{{$producto->inventario}}</th>
-                            </tr>
-                            <tr>
-                                <th style="width: 20%;">Categoría</th>
-                                <th>{{ $producto->categoria->nombre }}</th>
-                            </tr>
-                            <tr>
-                                <th style="width: 20%;">Género</th>
-                                <th>{{ $producto->genero->nombre }}</th>
-                            </tr>
-                            <tr>
-                                <th style="width: 20%;">Material del armazón</th>
-                                <th>{{ $producto->material->nombre }}</th>
-                            </tr>
-                            <tr>
-                                <th style="width: 20%;">Material del lente</th>
-                                <th>{{ $producto->material_lente->nombre }}</th>
-                            </tr>
-                            <tr>
-                                <th style="width: 20%;">Forma del marco</th>
-                                <th>{{ $producto->forma_marco->nombre }}</th>
-                            </tr>
-                            <tr>
-                                <th style="width: 20%;">Estilo del armazón</th>
-                                <th>{{ $producto->estilo->nombre }}</th>
-                            </tr>
-                            <tr>
-                                <th style="width: 20%;">Cantidad del producto en almacén</th>
-                                <th>{{ $cantidadProductoPorId->cantidad }}</th>
-                            </tr>
+
+
+
+
                              </thead>
+                        </table>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>Preguntas y Respuestas</h3>
+                                <hr>
+                            </div>
+                        </div>
+
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th style="width: 5%;">No </th>
+
+                                <th style="width: 20%;">Pregunta</th>
+                                <th style="width: 20%;">Respuesta Dada</th>
+                                <th style="width: 5%;">Valor</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($appliedGuide->givenReplies as $reply )
+                                <tr>
+                                    @if($reply->question)
+                                    <td>{{$reply->question->id}}</td>
+                                    <td>{{$reply->question->content}}</td>
+                                        <td>{{$reply->reply->content}}</td>
+                                        <td>{{$reply->value}}</td>
+                                    @endif
+
+                                </tr>
+                            @endforeach
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <th style="width: 5%;">No </th>
+
+                                <th style="width: 20%;">Pregunta</th>
+                                <th style="width: 20%;">Respuesta</th>
+                                <th style="width: 5%;">Valor</th>
+                            </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                    <a style="float: right" type="button" id="cancel" href="{{route('applied.index')}}" name="cancel"
+                       class="btn btn-primary">Vuelva Atras</a>
+                     </div>
+                </div>
+
             </div>
         </div>
     </div>

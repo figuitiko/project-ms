@@ -57,63 +57,117 @@ class GuidesTableSeeder extends Seeder
         $enterprise->activity = "agricola";
         $enterprise->guide_id = 1;
         $enterprise->worker_amount = 25;
+        $enterprise->surveyed_amount =$enterprise->getAmountSurveyed() ;
         $enterprise->save();
 
         $question = new Question();
         $question->content = "Mi trabajo me exige hacer mucho esfuerzo físico";
-
         $question->guide_id = 1;
         $question->save();
 
         $question = new Question();
-        $question->content = "pagan menos de lo necesario";
+        $question->content = "Me preocupa sufrir un accidente en mi trabajo";
+        $question->guide_id = 1;
+        $question->save();
 
+        $question = new Question();
+        $question->content = "Considero que las actividades que realizo son peligrosas";
+        $question->guide_id = 1;
+        $question->save();
+
+        $question = new Question();
+        $question->content = "Por la cantidad de trabajo que tengo debo quedarmetiempo adicional a mi turno";
+        $question->guide_id = 1;
+        $question->save();
+
+        $question = new Question();
+        $question->content = "Considero que es necesario mantener un ritmo de trabajo acelerado";
+        $question->guide_id = 1;
+        $question->save();
+
+        $question = new Question();
+        $question->content = "Mi trabajo exige que esté muy concentrado";
+        $question->guide_id = 1;
+        $question->save();
+
+        $question = new Question();
+        $question->content = "Mi trabajo requiere que memorice mucha información";
+        $question->guide_id = 1;
+        $question->save();
+
+        $question = new Question();
+        $question->content = "Mi trabajo exige que atienda varios asuntos al mismo tiempo";
+        $question->guide_id = 1;
+        $question->save();
+
+        $question = new Question();
+        $question->content = "Mi trabajo exige que atienda varios asuntos al mismo tiempo";
+        $question->guide_id = 1;
+        $question->save();
+
+        $question = new Question();
+        $question->content = "En mi trabajo soy responsable de cosas de mucho valor";
+        $question->guide_id = 1;
+        $question->save();
+
+        $question = new Question();
+        $question->content = "Respondo ante mi jefe por los resultados de toda mi área de trabajo";
+        $question->guide_id = 1;
+        $question->save();
+
+        $question = new Question();
+        $question->content = "En mi trabajo me dan órdenes contradictorias";
+        $question->guide_id = 1;
+        $question->save();
+
+        $question = new Question();
+        $question->content = "Considero que en mi trabajo me piden hacer cosas innecesarias";
+        $question->guide_id = 1;
+        $question->save();
+
+        $question = new Question();
+        $question->content = "Trabajo horas extras más de tres veces a la semana";
+        $question->guide_id = 1;
+        $question->save();
+
+        $question = new Question();
+        $question->content = "Mi trabajo me exige laborar en días de descanso, festivos o fines de semana";
+        $question->guide_id = 1;
+        $question->save();
+
+        $question = new Question();
+        $question->content = "Respondo ante mi jefe por los resultados de toda mi área de trabajo";
         $question->guide_id = 1;
         $question->save();
 
 
-//        $reply_value = new ReplyValue() ;
-//        $reply_value->state = 1;
-//        $reply_value->reply_id=1;
-//        $reply_value->content = 'bien';
-//        $reply_value->save();
-//
-//        $reply_value = new ReplyValue() ;
-//        $reply_value->state = 1;
-//        $reply_value->reply_id=1;
-//        $reply_value->content = 'mas o menos';
-//        $reply_value->save();
-//
-//        $reply_value = new ReplyValue() ;
-//        $reply_value->state = 1;
-//        $reply_value->reply_id=2;
-//        $reply_value->content = 'bien';
-//        $reply_value->save();
-//
-//        $reply_value = new ReplyValue() ;
-//        $reply_value->state = 1;
-//        $reply_value->reply_id=2;
-//        $reply_value->content = 'mas o menos';
-//        $reply_value->save();
-
 
         $reply = new Reply();
-
         $reply->content = 'Siempre';
         $reply->save();
 
         $reply = new Reply();
-
-        $reply->content = 'casi siempre';
+        $reply->content = 'Casi siempre';
         $reply->save();
 
-        $applied_guide= new AppliedGuide();
-        $applied_guide->guide_id = 1;
-        $applied_guide->save();
+        $reply = new Reply();
+        $reply->content = 'Algunas veces';
+        $reply->save();
+
+        $reply = new Reply();
+        $reply->content = 'Casi nunca';
+        $reply->save();
+
+        $reply = new Reply();
+        $reply->content = 'Nunca';
+        $reply->save();
+
+
+
+
 
         $quizzed =new Quizzed();
         $quizzed->enterprise_id = 1;
-        $quizzed->applied_guide_id = 1;
         $quizzed->name ='sergio';
         $quizzed->last_name= 'Garcia';
         $quizzed->job ='gerente';
@@ -121,31 +175,39 @@ class GuidesTableSeeder extends Seeder
         $quizzed->studies = 'universitario';
         $quizzed->save();
 
-
-
-
+        $applied_guide= new AppliedGuide();
+        $applied_guide->guide_id = 1;
+        $applied_guide->enterprise_id = 1;
+        $applied_guide->quizzed_id = 1;
         $applied_guide->save();
 
-        $given_reply= new GivenReply();
-        $given_reply->question_id = 1;
-        $given_reply->reply_id = 1;
-        $given_reply->applied_guide_id = 1;
-        $given_reply->save();
 
-        $given_reply= new GivenReply();
-        $given_reply->question_id = 1;
-        $given_reply->reply_id = 1;
-        $given_reply->applied_guide_id = 1;
-        $given_reply->save();
+
+
+
 
         $given_reply= new GivenReply();
         $given_reply->question_id = 1;
         $given_reply->reply_id = 1;
+        $given_reply->value = $given_reply->scopeValueByGivenReplies(1,1);
+        $given_reply->applied_guide_id = 1;
+        $given_reply->scopeValueByGivenReplies(1,1);
+        $given_reply->save();
+
+        $given_reply= new GivenReply();
+        $given_reply->question_id = 1;
+        $given_reply->reply_id = 3;
+        $given_reply->value = $given_reply->scopeValueByGivenReplies(1,1);
         $given_reply->applied_guide_id = 1;
         $given_reply->save();
 
-
-
+        $given_reply= new GivenReply();
+        $given_reply->question_id = 2;
+        $given_reply->reply_id = 4;
+        $given_reply->value = $given_reply->scopeValueByGivenReplies(1,1);
+        $given_reply->applied_guide_id = 1;
+        $given_reply->save();
 
     }
+
 }

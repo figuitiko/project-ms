@@ -27,6 +27,7 @@
                                     <th style="width: 5%;">No </th>
                                     <th style="width: 20%;">Nombre</th>
                                     <th style="width: 20%;">Razón Social</th>
+                                    <th style="width: 20%;">Personas a Enquestar</th>
                                     <th style="width: 20%;">Cantidad de Trabajadores</th>
                                     <th style="width: 5%;"></th>
                                     <th style="width: 5%;"></th>
@@ -39,6 +40,7 @@
                                         <td>{{$counter = $counter+1}}</td>
                                         <td>{{$enterprise->name}}</td>
                                         <td>{{$enterprise->social_reason}}</td>
+                                        <td>{{$enterprise->surveyed_amount}}</td>
                                         <td>{{$enterprise->worker_amount}}</td>
                                         <td class="cell-center">
                                             <a href="{{route('enterprise.edit', $enterprise)}}" class="fa fa-edit"
@@ -64,6 +66,7 @@
                                     <th style="width: 5%;">No </th>
                                     <th style="width: 20%;">Nombre</th>
                                     <th style="width: 20%;">Razón Social</th>
+                                    <th style="width: 20%;">Personas a Enquestar</th>
                                     <th style="width: 20%;">Cantidad de Trabajadores</th>
                                     <th style="width: 5%;"></th>
                                     <th style="width: 5%;"></th>

@@ -19,6 +19,7 @@ class CreateGivenRepliesTable extends Migration
             $table->unsignedInteger('question_id');
             $table->unsignedInteger('reply_id');
             $table->unsignedInteger('applied_guide_id');
+            $table->integer('value')->nullable();
         });
     }
 

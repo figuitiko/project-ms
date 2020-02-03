@@ -69,7 +69,7 @@
                     <a class="dropdown-item" href="{{route('guide.index')}}">Guias
                         <i class="fas fa-fw fa-glasses"></i></a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Guias Aplicadas
+                    <a class="dropdown-item" href="{{route('applied.index')}}">Guias Aplicadas
                         <i class="fas fa-fw fa-chart-bar"></i></a>
                 </div>
             </li>

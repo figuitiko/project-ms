@@ -173,7 +173,7 @@
                 </div>
             </div>
         </div>
-    </div>
+
     <div class="modal fade" id="modal-activated" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <form id="activar_guide">
         <div class="modal-dialog" role="document">
@@ -213,7 +213,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button id="modal-activate" data-token="{{ csrf_token() }}"   type="button" class="btn btn-primary">Save changes</button>
+                    <button id="modal-activate" data-token="{{ csrf_token() }}"  data-guide="{{$guide}}" type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
@@ -223,7 +223,7 @@
 
 @push('scripts')
 
-    <script src="{{ asset('js/admin/guide.js') }}"></script>
+    <script src="{{ asset('js/admin/guide-index.js') }}"></script>
     <script>
         if ( window.location.hash === '#create') {
             $('#myModal').modal('show');

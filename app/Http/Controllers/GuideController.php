@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\AppliedGuide;
 use App\Enterprise;
 use App\Guide;
 use App\Question;
@@ -142,14 +143,8 @@ class GuideController extends Controller
      */
     public function update(Request $request, Guide $guide)
     {
-        //
-//        dd($request->questions);exit;
-////     dd($request->guide_type_id);exit;
-//        $this->validate($request, [
-//            'questions'=>'required',
-//            'new_questions'=>'sometimes'
-//        ]);
-//        dd($request->title); exit;
+
+
             if(!$request->wantsJson()){
                 try{
                     DB::beginTransaction();
@@ -163,22 +158,35 @@ class GuideController extends Controller
 
 
 
+//
+//                    $questions = Question::where('guide_id',$guide->id)->get();
+//            //            dd($questions);exit;
 
-                    $questions = Question::where('guide_id',$guide->id)->get();
-            //            dd($questions);exit;
-                    $i=0;
-                    if(!empty($questions)){
-                        foreach ($questions as $question){
-                            if(empty($request->question[$i])){
-                                $question->update([
-                                    'content'=>$request->questions[$i]
-                                ]);
-                            }
+//                    $i=0;
+//                    if(!empty($request->the_questions)){
+//                        foreach ($request->the_questions as $key=>$value){
+//                            $key++;
+//                            $question = Question::find($key);
+//
+//                            $question->update([
+//                                $question->content = $value
+//                            ]);
+//                        }
+//                    }
 
-                            $i++;
-
-                        }
-                    }
+//                    if(!empty($questions)){
+//                        foreach ($questions as $question){
+//                            if(!empty($request->the_questions)){
+//
+//                                $question->update([
+//                                    $question->content = $request->the_questions[$question->id]
+//                                ]);
+//                            }
+//
+//                            $i++;
+//
+//                        }
+//                    }
 
                     if($request->new_questions != ''){
                         foreach ($request->new_questions as $new_question){
@@ -199,10 +207,20 @@ class GuideController extends Controller
             }
             elseif ($request->wantsJson()){
 //                dd($request->all());
-               $guide->update([
-                   $guide->is_activated = $request->has('is_activated'),
-                   $guide->active_enterprise_id = $request->active_enterprise
-               ]);
+              $enterprise = Enterprise::find($request->active_enterprise);
+              $applied_guide = AppliedGuide::where('enterprise_id',$request->active_enterprise)->get();
+              $applied_guide_amount = $applied_guide->count();
+//              dd($applied_guide_amount); exit;
+
+//              dd($enterprise->surveyed_amount); exit;
+                $surveyed_max = $enterprise->surveyed_amount;
+                if($applied_guide_amount <= $surveyed_max ) {
+                    $guide->update([
+                        $guide->is_activated = $request->has('is_activated'),
+                        $guide->active_enterprise_id = $request->active_enterprise
+                    ]);
+                }
+
                return response()->json(['success'=>'Data is successfully updated']);
             }
 

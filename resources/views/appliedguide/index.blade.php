@@ -6,9 +6,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <div class="links">
-                    <a href="{{route('replies.create')}}" class="btn btn-primary">Nueva Respuesta</a>
-                </div>
+
                 <br>
                 @if(Session::has('message'))
                     <div class="alert alert-success" role="alert">
@@ -18,34 +16,38 @@
                     </div>
                 @endif
                 <div class="card mb-3">
-                    <div class="card-header"><i class="fas fa-table"></i> Lista de accesorios</div>
+                    <div class="card-header"><i class="fas fa-table"></i> Lista de guias aplicadas</div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
                                     <th style="width: 5%;">No </th>
-                                    <th style="width: 30%;">Contenido</th>
+                                    <th style="width: 30%;">Empresa</th>
+                                    <th style="width: 30%;">Enquestado</th>
+                                    <th style="width: 30%;">Realizada</th>
                                     <th style="width: 5%;"></th>
                                     <th style="width: 5%;"></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($replies as $key => $reply)
+                                @foreach($applied_guides as $key => $applied_guide)
                                     <tr>
                                         <td>{{$counter = $counter+1}}</td>
-                                        <td>{{$reply->content}}</td>
+                                        <td>{{$applied_guide->enterprise->name}}</td>
+                                        <td>{{$applied_guide->quizzed->name}}</td>
+                                        <td>{{date("d/m/Y", strtotime("$applied_guide->created_at"))}}</td>
 
                                         <td class="cell-center">
-                                            <a href="{{route('replies.edit', $reply)}}" class="fa fa-edit"
-                                               title="Editar el Accesorio"></a></td>
+                                            <a href="{{route('applied.show', $applied_guide)}}" class="fa fa-eye"
+                                               title="Ver detalles"></a></td>
                                         <td class="cell-center">
                                             <form method="POST"
-                                                  action="{{ route('replies.destroy', $reply) }}"
+                                                  action="{{ route('applied.destroy', $applied_guide) }}"
                                                   style="display: inline">
                                                 {{ csrf_field() }} {{ method_field('DELETE') }}
                                                 <button class="btn btn-xs btn-danger"
-                                                        onclick="return confirm('¿Estás seguro de querer eliminar esta esta respuesta?')"
+                                                        onclick="return confirm('¿Estás seguro de querer eliminar esta esta guia?')"
                                                 ><i class="fa fa-times"></i></button>
                                             </form></td>
 {{--                                        <td class="cell-center">--}}
@@ -57,7 +59,9 @@
                                 <tfoot>
                                 <tr>
                                     <th style="width: 5%;">No </th>
-                                    <th style="width: 30%;">Contenido</th>
+                                    <th style="width: 30%;">Empresa</th>
+                                    <th style="width: 30%;">Enquestado</th>
+                                    <th style="width: 30%;">Realizada</th>
                                     <th style="width: 5%;"></th>
                                     <th style="width: 5%;"></th>
                                 </tr>

@@ -19,10 +19,12 @@ class CreateEnterprisesTable extends Migration
             $table->string('name');
             $table->longText('social_reason');
             $table->integer('worker_amount');
+            $table->integer('surveyed_amount');
             $table->string('rfc')->unique();
             $table->bigInteger('phone');
             $table->longText('address');
             $table->longText('activity');
+
             $table->unsignedInteger('guide_id');
         });
     }

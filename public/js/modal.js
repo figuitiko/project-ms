@@ -22,7 +22,10 @@ $(document).ready(function () {
                 name: "required",
                 last_name: "required",
                 job: "required",
-                age: "required",
+                age: {
+                    required: true,
+                    number: true
+                },
                 studies: "required"
             },
             // Specify validation error messages
@@ -30,7 +33,7 @@ $(document).ready(function () {
                 name: "Por favor ponga el nombre ",
                 last_name: "Por favor ponga los apellidos",
                 job: "Debe introducir la ocupacion",
-                age:"Debe instroducir la edad d",
+                age:"Debe instroducir la edad y el valor ser numérico",
                 studies: "Debe introducir los estudios",
 
             },

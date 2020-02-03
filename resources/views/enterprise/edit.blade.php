@@ -84,6 +84,7 @@
                                 <option value="{{$guide->id}}">{{$guide->description}}</option>
                             @endforeach
                         </select>
+
                     </div>
                 </div>
                 <div class="form-group">
@@ -99,3 +100,8 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+
+    <script src="{{ asset('js/admin/enterprise.js') }}"></script>
+
+@endpush

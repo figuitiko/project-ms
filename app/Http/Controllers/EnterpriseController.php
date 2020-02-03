@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enterprise;
 use App\Guide;
 use App\GuideType;
+use http\Client\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
@@ -28,12 +29,17 @@ class EnterpriseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $enterprises = Enterprise::all();
-        $counter = 0;
-        return view('enterprise.index',['enterprises' => $enterprises, 'counter' => $counter]);
+        if(!$request->wantsJson()){
+            $enterprises = Enterprise::all();
+            $counter = 0;
+            return view('enterprise.index',['enterprises' => $enterprises, 'counter' => $counter]);
+        }elseif ($request->wantsJson()) {
+            $enterprises = Enterprise::all();
 
+            return \response()->json(array('enterprises' => $enterprises));
+        }
     }
 
     /**
