@@ -22,5 +22,8 @@ class Question extends Model
     public function givenReplies(){
         return $this->hasMany(GivenReply::class);
     }
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
 
 }

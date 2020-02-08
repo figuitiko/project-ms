@@ -9,6 +9,7 @@ use App\AppliedGuide;
 use App\Quizzed;
 use App\GuideType;
 use App\GivenReply;
+use App\Category;
 
 
 class GuidesTableSeeder extends Seeder
@@ -60,84 +61,120 @@ class GuidesTableSeeder extends Seeder
         $enterprise->surveyed_amount =$enterprise->getAmountSurveyed() ;
         $enterprise->save();
 
+        $category = new Category();
+        $category->content = "amount_job";
+        $category->guide_type_id = 1;
+        $category->save();
+
+        $category = new Category();
+        $category->content = "job_responsibility";
+        $category->guide_type_id = 1;
+        $category->save();
+
+        $category = new Category();
+        $category->content = "job_time";
+        $category->guide_type_id = 1;
+        $category->save();
+
+        $category = new Category();
+        $category->content = "job_decisions";
+        $category->guide_type_id = 2;
+        $category->save();
+
         $question = new Question();
         $question->content = "Mi trabajo me exige hacer mucho esfuerzo físico";
         $question->guide_id = 1;
+        $question->category_id = 1;
         $question->save();
 
         $question = new Question();
         $question->content = "Me preocupa sufrir un accidente en mi trabajo";
         $question->guide_id = 1;
+        $question->category_id = 1;
         $question->save();
 
         $question = new Question();
         $question->content = "Considero que las actividades que realizo son peligrosas";
         $question->guide_id = 1;
+        $question->category_id = 1;
         $question->save();
 
         $question = new Question();
         $question->content = "Por la cantidad de trabajo que tengo debo quedarmetiempo adicional a mi turno";
         $question->guide_id = 1;
+        $question->category_id = 1;
         $question->save();
 
         $question = new Question();
         $question->content = "Considero que es necesario mantener un ritmo de trabajo acelerado";
         $question->guide_id = 1;
+        $question->category_id = 1;
         $question->save();
 
         $question = new Question();
         $question->content = "Mi trabajo exige que esté muy concentrado";
         $question->guide_id = 1;
+        $question->category_id = 1;
         $question->save();
 
         $question = new Question();
         $question->content = "Mi trabajo requiere que memorice mucha información";
         $question->guide_id = 1;
+        $question->category_id = 1;
         $question->save();
 
         $question = new Question();
         $question->content = "Mi trabajo exige que atienda varios asuntos al mismo tiempo";
         $question->guide_id = 1;
+        $question->category_id = 1;
         $question->save();
 
         $question = new Question();
         $question->content = "Mi trabajo exige que atienda varios asuntos al mismo tiempo";
         $question->guide_id = 1;
+        $question->category_id = 1;
         $question->save();
 
         $question = new Question();
         $question->content = "En mi trabajo soy responsable de cosas de mucho valor";
         $question->guide_id = 1;
+        $question->category_id = 2;
         $question->save();
 
         $question = new Question();
         $question->content = "Respondo ante mi jefe por los resultados de toda mi área de trabajo";
         $question->guide_id = 1;
+        $question->category_id = 2;
         $question->save();
 
         $question = new Question();
         $question->content = "En mi trabajo me dan órdenes contradictorias";
         $question->guide_id = 1;
+        $question->category_id = 2;
         $question->save();
 
         $question = new Question();
         $question->content = "Considero que en mi trabajo me piden hacer cosas innecesarias";
         $question->guide_id = 1;
+        $question->category_id = 2;
         $question->save();
 
         $question = new Question();
         $question->content = "Trabajo horas extras más de tres veces a la semana";
         $question->guide_id = 1;
+        $question->category_id = 3;
         $question->save();
 
         $question = new Question();
         $question->content = "Mi trabajo me exige laborar en días de descanso, festivos o fines de semana";
         $question->guide_id = 1;
+        $question->category_id = 3;
         $question->save();
 
         $question = new Question();
         $question->content = "Respondo ante mi jefe por los resultados de toda mi área de trabajo";
         $question->guide_id = 1;
+        $question->category_id = 3;
         $question->save();
 
 

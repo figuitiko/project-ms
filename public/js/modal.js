@@ -57,4 +57,6 @@ $(document).ready(function () {
     validatorFront('surveyed-form-2');
 
 
-})
+});
+
+

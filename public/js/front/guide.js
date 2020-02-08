@@ -1,0 +1,6 @@
+
+
+$('#dataTable').dataTable({
+    "bPaginate": false
+});
+

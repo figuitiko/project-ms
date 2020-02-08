@@ -80,13 +80,15 @@
 <script src="{{ asset('js/jquery.slim.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('js/jquery-validator.js') }}"></script>
-<script src="{{ asset('js/modal.js') }}"></script>
 <script src="{{ asset('js/jquery.dataTables.js') }}"></script>
 <script src="{{ asset('js/dataTables.bootstrap4.js') }}"></script>
 <script src="{{ asset('js/datatables-demo.js') }}"></script>
+<script src="{{ asset('js/modal.js') }}"></script>
+
 
 
 
 @stack('scripts')
 </body>
 </html>
+

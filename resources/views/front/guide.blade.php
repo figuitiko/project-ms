@@ -9,6 +9,7 @@
                 <h2 class="text-center">Datos del encuestado</h2>
                 <input type="hidden" name="guide_id" value="{{$guide->id}}">
                 <input type="hidden" name="enterprise_id" value="{{$guide->active_enterprise_id}}">
+
             <div class="form-group">
                 <label for="exampleFormControlInput1">Nombre Encuestado</label>
                 <input type="text" class="form-control" id="name" name="name" placeholder="Nombres">
@@ -41,92 +42,92 @@
                 <div class="row">
 
 
-                    @foreach($guide->questions as $question)
-                    <div class="col-md-12 border-survey">
-                        <fieldset id="group{{++$counter}}">
-                            <div class="row">
-                            <div class="col-md-4  ">
-                        <label for="exampleFormControlTextarea1">{{$counter}}-{{$question->content}}</label>
-                            <?php $i=1?>
-                            </div>
+                    @foreach($guide->guideType->categories as $category)
+                        @if($category->id == 1 )
+                            <h4 class="question">Para responder las preguntas siguientes considere las condiciones de su centro de trabajo, así como la cantidad y ritmo de
+                                trabajo.</h4>
+                            @endif
+                        @if($category->id == 2 )
+                                <h4 class="question">Las preguntas siguientes están relacionadas con las actividades que realiza en su trabajo y las responsabilidades que tiene.</h4>
+                            @endif
+                        @if($category->id == 3 )
+                                <h4 class="question">Las preguntas siguientes están relacionadas con el tiempo destinado a su trabajo y sus responsabilidades familiares.</h4>
+                            @endif
 
-                        <div class="col-md-8 ">
-                        @foreach($replies as $reply)
+                        <table class="table table-bordered" id="dataTable_{{$category->id}}" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th style="width: 5%;">No </th>
+                                <th style="width: 60%;">Preguntas</th>
+                                @foreach($replies as $reply)
+                                    <th style="width: 5%;">{{$reply->content}}</th>
+                                @endforeach
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($guide->questions->where('category_id',$category->id) as $key => $question)
+                                <tr>
+                                    <td>{{$question->id}}</td>
+                                    <td>{{$question->content}}</td>
+                                    @foreach($replies as $reply)
+                                        <td class="text-center">
 
-                                <div class="custom-control custom-radio custom-control-inline">
-
-                                <label class="form-check-label" for="exampleRadios1">
-                                    {{$reply->content}}
-                                </label>
-
-                                <input class="form-check-input " type="radio" name="question{{$question->id}}" value="{{$reply->id}},{{$question->id}}" >
+                                            <input class="form-check-input " type="radio"  name="question{{$question->id}}" value="{{$reply->id}},{{$question->id}}" >
+                                        </td>
+                                    @endforeach
 
 
-                                </div>
+                                </tr>
                             @endforeach
-                        </div>
-                            </div>
-                        </fieldset>
-                    </div>
+                            </tbody>
 
-
-                        @if( $loop->iteration %3 == 0)
-                         </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <hr class="style-four">
-
-                                </div>
-                            </div>
-
-
-                            <div class="clearfix"></div>
-                <div  class="row">
-
-                        @endif
+                        </table>
                         @endforeach
 
-            </div>
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                    <tr>
-                        <th style="width: 5%;">No </th>
-                        <th style="width: 30%;">pregunta</th>
-                        @foreach($replies as $reply)
-                        <th style="width: 5%;">{{$reply->content}}</th>
-                            @endforeach
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($guide->questions as $key => $question)
-                        <tr>
-                            <td>{{$question->id}}</td>
-                            <td>{{$question->content}}</td>
-                            @foreach($replies as $reply)
-                                <td>
-
-                                    <input class="form-check-input " type="radio" name="question{{$question->id}}" value="{{$reply->id}},{{$question->id}}" ></td>
-                                @endforeach
 
 
-                        </tr>
-                    @endforeach
-                    </tbody>
-                    <tfoot>
-                    <tr>
-                        <th style="width: 5%;">No </th>
-                        <th style="width: 30%;">Contenido</th>
-                        <th style="width: 5%;"></th>
-                        <th style="width: 5%;"></th>
-                    </tr>
-                    </tfoot>
-                </table>
+{{--                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">--}}
+{{--                    <thead>--}}
+{{--                    <tr>--}}
+{{--                        <th style="width: 5%;">No </th>--}}
+{{--                        <th style="width: 60%;">Preguntas</th>--}}
+{{--                        @foreach($replies as $reply)--}}
+{{--                        <th style="width: 5%;">{{$reply->content}}</th>--}}
+{{--                            @endforeach--}}
+{{--                    </tr>--}}
+{{--                    </thead>--}}
+{{--                    <tbody>--}}
+{{--                    @foreach($guide->questions as $key => $question)--}}
+{{--                        <tr>--}}
+{{--                            <td>{{$question->id}}</td>--}}
+{{--                            <td>{{$question->content}}</td>--}}
+{{--                            @foreach($replies as $reply)--}}
+{{--                                <td class="text-center">--}}
+
+{{--                                    <input class="form-check-input " type="radio"  name="question{{$question->id}}" value="{{$reply->id}},{{$question->id}}" >--}}
+{{--                                </td>--}}
+{{--                                @endforeach--}}
+
+
+{{--                        </tr>--}}
+{{--                    @endforeach--}}
+{{--                    </tbody>--}}
+{{--                    <tfoot>--}}
+{{--                    <tr>--}}
+{{--                        <th style="width: 5%;">No </th>--}}
+{{--                        <th style="width: 60%;">Preguntas</th>--}}
+{{--                        @foreach($replies as $reply)--}}
+{{--                            <th style="width: 5%;">{{$reply->content}}</th>--}}
+{{--                        @endforeach--}}
+{{--                    </tr>--}}
+{{--                    </tfoot>--}}
+{{--                </table>--}}
 
                 <div class="form-group" style="margin-top: 20px">
                     <button type="submit"  style="float: right" id="btn-surveyed-send" class="btn btn-success btn-lg">Enviar</button>
                 </div>
             </div>
-
+            </div>
         </form>
         @else
         <h1>La guia no esta activa</h1>
@@ -134,4 +135,12 @@
 
 
         @endsection
+
+
+@push('scripts')
+<script src="{{ asset('js/front/guide.js') }}"></script>
+@endpush
+
+
+
 

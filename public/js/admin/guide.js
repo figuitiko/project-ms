@@ -68,11 +68,12 @@ $(document).ready(function() {
     //     // //     data.substr( 0, 120 )+'...'
     //     // // );
     //     // return false;
-    //    //  var table = $('#dataTable').dataTable();
-    //    //
-    //    //
-    //    //      var data = table.$('input, select').serializeArray();
-    //    //     // console.log(data)
+        var table = $('#dataTable').dataTable();
+        console.log(table)
+
+
+            var data = table.$('input, select').serializeArray();
+            console.log(data)
     //    //
     //    //
     //    // //data= JSON.stringify(data);
