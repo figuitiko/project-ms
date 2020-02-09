@@ -21,6 +21,8 @@ class CreateGuidesTable extends Migration
             $table->string('link')->nullable();
             $table->unsignedInteger('active_enterprise_id')->nullable();
             $table->boolean('is_activated')->nullable();
+            $table->longText('first_items');
+            $table->longText('second_items');
             $table->unsignedInteger('guide_type_id');
             $table->integer('max_ammout')->nullable();
         });

@@ -33,31 +33,31 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                @if (Route::has('login'))
+{{--            <ul class="navbar-nav ml-auto">--}}
+{{--                @if (Route::has('login'))--}}
 
-                        @auth
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{{ route('admin') }}">administración
-                                <span class="sr-only">(current)</span>
-                            </a>
-                        </li>
+{{--                        @auth--}}
+{{--                        <li class="nav-item active">--}}
+{{--                            <a class="nav-link" href="{{ route('admin') }}">administración--}}
+{{--                                <span class="sr-only">(current)</span>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
 
-                        @else
+{{--                        @else--}}
 
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{{ route('login') }}">Entrar
-                                <span class="sr-only">(current)</span>
-                            </a>
-                        </li>
+{{--                        <li class="nav-item active">--}}
+{{--                            <a class="nav-link" href="{{ route('login') }}">Entrar--}}
+{{--                                <span class="sr-only">(current)</span>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
 
-                        @endauth
+{{--                        @endauth--}}
 
-                @endif
+{{--                @endif--}}
 
 
 
-            </ul>
+{{--            </ul>--}}
         </div>
     </div>
 </nav>
@@ -76,14 +76,14 @@
 
 
 <!-- Bootstrap core JavaScript-->
-<script src="{{ asset('js/jquery.min.js') }}"></script>
-<script src="{{ asset('js/jquery.slim.min.js') }}"></script>
+<script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
+{{--<script src="{{ asset('js/jquery.slim.min.js') }}"></script>--}}
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('js/jquery-validator.js') }}"></script>
 <script src="{{ asset('js/jquery.dataTables.js') }}"></script>
 <script src="{{ asset('js/dataTables.bootstrap4.js') }}"></script>
 <script src="{{ asset('js/datatables-demo.js') }}"></script>
-<script src="{{ asset('js/modal.js') }}"></script>
+
 
 
 

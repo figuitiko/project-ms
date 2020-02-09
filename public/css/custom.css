@@ -18,4 +18,15 @@ hr.style-four {
 .question {
     color: #ff8619;
 }
-
+#user-data{
+    margin-top: 60px;
+}
+#thanks {
+    margin-top: 100px;
+}
+#thanks h1 {
+    color: #3f9ae5;
+}
+.question_wrapper{
+    margin-top: 40px;
+}

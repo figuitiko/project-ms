@@ -23,6 +23,14 @@
                                 <th style="width: 24%;">{{$appliedGuide->quizzed->name}}</th>
                             </tr>
                             <tr>
+                                <th style="width: 20%;">Apellidos Encuestado</th>
+                                <th style="width: 24%;">{{$appliedGuide->quizzed->last_name}}</th>
+                            </tr>
+                            <tr>
+                                <th style="width: 20%;">Ocupación</th>
+                                <th style="width: 24%;">{{$appliedGuide->quizzed->job}}</th>
+                            </tr>
+                            <tr>
                                 <th style="width: 20%;">Numero de Guia</th>
                                 <th style="width: 24%;">{{$appliedGuide->guide->guideType->name}}</th>
                             </tr>

@@ -1,5 +1,11 @@
 const baseUrl= 'http://127.0.0.1:8000/';
 
+
+$('table tr td:last-child button ').on('click',function () {
+    var guide = $(this).data('guide');
+    $('#modal-activate').data('guide',guide );
+})
+
 $('#modal-activate').on('click', function (e) {
     e.preventDefault();
     if ($('#activated-guide').is(":checked")){

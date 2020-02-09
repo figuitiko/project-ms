@@ -97,7 +97,7 @@
 
                                         </td>
                                         <td class="cell-center">
-                                            <button id="button-activate-guide" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-activated"  data-guide="{{$guide}}">
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-activated"  data-guide="{{$guide}}">
                                                 {{$guide->is_activated ? 'Desactivar' : 'Activar' }}
                                             </button></td>
 
@@ -213,12 +213,13 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button id="modal-activate" data-token="{{ csrf_token() }}"  data-guide="{{$guide}}" type="button" class="btn btn-primary">Save changes</button>
+                    <button id="modal-activate" data-token="{{ csrf_token() }}"   type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
         </form>
     </div>
+
 @endsection
 
 @push('scripts')

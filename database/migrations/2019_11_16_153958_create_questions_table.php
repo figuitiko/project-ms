@@ -17,6 +17,7 @@ class CreateQuestionsTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->longText('content');
+            $table->integer('number');
             $table->unsignedInteger('guide_id');
             $table->unsignedInteger('category_id');
         });

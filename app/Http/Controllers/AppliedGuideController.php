@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\AppliedGuide;
 use App\Enterprise;
 use App\GivenReply;
+use App\Guide;
 use App\Quizzed;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -74,6 +75,9 @@ class AppliedGuideController extends Controller
             $applied_guide->quizzed_id = $quizzed->id;
             $applied_guide->save();
 
+            $the_guide = Guide::where('id', $request->guide_id)->first();
+            $first_items= unserialize($the_guide->first_items);
+            $second_items = unserialize($the_guide->second_items);
 
             foreach ($only_guestion as $value)
             {
@@ -83,7 +87,8 @@ class AppliedGuideController extends Controller
                 $given_reply->reply_id = $question_reply[0];
                 $given_reply->question_id = $question_reply[1];
                 $given_reply->applied_guide_id = $applied_guide->id;
-                $given_reply->value = $given_reply->scopeValueByGivenReplies($question_reply[0],$question_reply[1]);
+                $given_reply->value = $given_reply->scopeValueByGivenRepliesGuide($first_items,$second_items,$question_reply[0],$question_reply[1]);
+
                 $given_reply->save();
             }
 
