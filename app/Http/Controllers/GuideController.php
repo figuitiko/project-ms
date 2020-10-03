@@ -206,7 +206,12 @@ class GuideController extends Controller
                 return redirect()->to(route('guide.index'))->with('message', 'Se ha editado la Guia');
             }
             elseif ($request->wantsJson()){
+
+
 //                dd($request->all());
+
+
+
               $enterprise = Enterprise::find($request->active_enterprise);
               $applied_guide = AppliedGuide::where('enterprise_id',$request->active_enterprise)->get();
               $applied_guide_amount = $applied_guide->count();
@@ -215,10 +220,14 @@ class GuideController extends Controller
 //              dd($enterprise->surveyed_amount); exit;
                 $surveyed_max = $enterprise->surveyed_amount;
                 if($applied_guide_amount <= $surveyed_max ) {
-                    $guide->update([
-                        $guide->is_activated = $request->has('is_activated'),
-                        $guide->active_enterprise_id = $request->active_enterprise
-                    ]);
+                   if($request->is_activated != null){
+
+                       $guide->update([
+                           $guide->is_activated = $request->is_activated  ,
+                           $guide->active_enterprise_id = $request->active_enterprise
+                       ]);
+                   }
+
                 }
 
                return response()->json(['success'=>'Data is successfully updated']);

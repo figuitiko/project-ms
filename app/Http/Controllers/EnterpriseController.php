@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\AppliedGuide;
 use App\Enterprise;
+use App\GivenReply;
 use App\Guide;
 use App\GuideType;
 use http\Client\Response;
@@ -103,6 +105,19 @@ class EnterpriseController extends Controller
     public function show(Enterprise $enterprise)
     {
         $counter=1;
+      //  dd($enterprise);
+       $appliedGuides= AppliedGuide::where('enterprise_id',$enterprise->id)->get();
+       $givenReplies = DB::table('given_replies')
+                        ->join('applied_guides','given_replies.id','=', 'given_replies.applied_guide_id')
+                         ->get();
+       dd($givenReplies);
+        $replies= [];
+            foreach ($appliedGuides as $guide){
+                $replies[] = GivenReply::where('applied_guide_id',$guide->id)->get();
+            }
+
+            dd($replies);
+
         return view('enterprise.show', ['enterprise' => $enterprise, 'counter'=>$counter]);
     }
 

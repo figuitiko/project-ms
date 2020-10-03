@@ -82,6 +82,7 @@ class AppliedGuideController extends Controller
             foreach ($only_guestion as $value)
             {
                 $question_reply = explode(",", $value);
+
                // dd($question_reply);
                 $given_reply = new GivenReply();
                 $given_reply->reply_id = $question_reply[0];

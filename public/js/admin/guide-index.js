@@ -4,14 +4,32 @@ const baseUrl= 'http://127.0.0.1:8000/';
 $('table tr td:last-child button ').on('click',function () {
     var guide = $(this).data('guide');
     $('#modal-activate').data('guide',guide );
+    if(guide.is_activated == 1){
+        $('#activated_check').hide();
+        $('#deactivated_check').show();
+        $('#activated_check').prop('check', false);
+        $('#enterprise_to_activate').hide();
+
+
+    }else {
+        $('#deactivated_check').hide();
+        $('#activated_check').show();
+        $('#deactivated_check').prop('check', false);
+        $('#enterprise_to_activate').show();
+    }
 })
 
 $('#modal-activate').on('click', function (e) {
     e.preventDefault();
     if ($('#activated-guide').is(":checked")){
-        var active= true;
+       var  active = 1;
 
     }
+    if ($('#deactivated-guide').is(":checked")){
+         active= 0;
+
+    }
+    console.log(active);
     // else {
     //     var active = '';
     // }
@@ -25,6 +43,7 @@ $('#modal-activate').on('click', function (e) {
 
 
     var settingActivate = {
+
         url: baseUrl+"admin/guide/"+guide['id'],
         type: 'PUT',
         dataType: "JSON",
@@ -36,7 +55,8 @@ $('#modal-activate').on('click', function (e) {
 
 
         }
-    }
+    };
+
     $.ajax(settingActivate).done(function (response) {
         console.log("it Work");
         console.log(response);
@@ -44,9 +64,12 @@ $('#modal-activate').on('click', function (e) {
 
         if(active == true){
             $('#activate-msg').removeClass('visible-msg');
+            $('#activate-msg').text('Se ha activado la guia');
         }
-        else{
-            $('#activate-msg').addClass('visible-msg');
+        else if(active == 0){
+            $('#activate-msg').removeClass('visible-msg alert-success');
+            $('#activate-msg').addClass('alert-danger');
+            $('#activate-msg').text('Se ha desactivado la guia');
         }
         $("#enterprise-active").val();
         setTimeout(function(){  window.location.href = baseUrl+"admin/guide/"; }, 3000);

@@ -25,7 +25,7 @@
                 <div id="activate-msg" class="visible-msg alert alert-success" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                     Se ha activado una guia
+
                 </div>
                 <div class="card mb-3">
                     <div class="card-header"><i class="fas fa-table"></i>Lista de Guías</div>
@@ -51,7 +51,7 @@
                                         <td>{{$counter = $counter+1}}</td>
                                         <td>{{$guide->title}}</td>
                                         <td>
-                                            @if($guide->link and $guide->is_activated)
+                                            @if($guide->link and $guide->is_activated == 1)
                                             <a id="guide-link"  target="_blank" href="
 
                                          {{$app['url']->to('/')}}{{$guide->link}}">
@@ -98,8 +98,14 @@
                                         </td>
                                         <td class="cell-center">
                                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-activated"  data-guide="{{$guide}}">
-                                                {{$guide->is_activated ? 'Desactivar' : 'Activar' }}
-                                            </button></td>
+                                               @if($guide->is_activated == 0)
+                                                   Activar
+                                                   @endif
+                                                @if($guide->is_activated == 1)
+                                                       Desactivar
+                                                    @endif
+                                            </button>
+                                        </td>
 
 
                                     </tr>
@@ -188,14 +194,26 @@
                     <div class="row">
                         <div class="col-md-12">
 
-                        <div class="form-check form-check-inline">
-                            <label class="form-check-label" for="inlineCheckbox1">Activar</label>
-                            <div class="form-label-group">
-                            <input class="form-check-input" type="checkbox" id="activated-guide" value="option1" name="activated-guide">
+                        <fieldset>
+                            <div  id="activated_check" class="form-check form-check-inline">
+                                <label class="form-check-label" for="inlineCheckbox1">Activar----</label>
+                                <div class="form-label-group">
+                                    <input class="form-check-input" type="radio" id="activated-guide" value="option1" name="activated-guide">
+                                </div>
+
                             </div>
 
-                        </div>
-                            <div class="form-group">
+                            <div id="deactivated_check" class="form-check form-check-inline">
+                                <label class="form-check-label" for="inlineCheckbox1">Desactivar----</label>
+                                <div class="form-label-group">
+                                    <input class="form-check-input" type="radio" id="deactivated-guide" value="option1" name="activated-guide">
+                                </div>
+
+                            </div>
+                        </fieldset>
+
+
+                            <div id="enterprise_to_activate" class="form-group">
                                 <label class="control-label">Empresas</label>
                                 <div class="form-label-group">
                                     <select  id="enterprise-active" class="custom-select" name="enterprises" >
