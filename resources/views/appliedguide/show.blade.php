@@ -18,18 +18,24 @@
                                 <th style="width: 20%;">Nombre de la Empresa </th>
                                 <th style="width: 24%;">{{$appliedGuide->enterprise->name}}</th>
                             </tr>
+                            @if($appliedGuide->guide->id == 1)
                             <tr>
                                 <th style="width: 20%;">Nombre del Encuestado</th>
                                 <th style="width: 24%;">{{$appliedGuide->quizzed->name}}</th>
                             </tr>
+                            @endif
+                            @if($appliedGuide->guide->id == 1)
                             <tr>
                                 <th style="width: 20%;">Apellidos Encuestado</th>
                                 <th style="width: 24%;">{{$appliedGuide->quizzed->last_name}}</th>
                             </tr>
+                            @endif
+                            @if($appliedGuide->guide->id == 1)
                             <tr>
                                 <th style="width: 20%;">Ocupación</th>
                                 <th style="width: 24%;">{{$appliedGuide->quizzed->job}}</th>
                             </tr>
+                            @endif
                             <tr>
                                 <th style="width: 20%;">Numero de Guia</th>
                                 <th style="width: 24%;">{{$appliedGuide->guide->guideType->name}}</th>
@@ -58,17 +64,21 @@
 
                                 <th style="width: 20%;">Pregunta</th>
                                 <th style="width: 20%;">Respuesta Dada</th>
+                                @if($appliedGuide->guide_id != 1)
                                 <th style="width: 5%;">Valor</th>
+                                    @endif
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($appliedGuide->givenReplies as $reply )
                                 <tr>
                                     @if($reply->question)
-                                    <td>{{$reply->question->id}}</td>
+                                    <td>{{$reply->question->number}}</td>
                                     <td>{{$reply->question->content}}</td>
                                         <td>{{$reply->reply->content}}</td>
+                                        @if($appliedGuide->guide_id != 1)
                                         <td>{{$reply->value}}</td>
+                                        @endif
                                     @endif
 
                                 </tr>
@@ -80,7 +90,9 @@
 
                                 <th style="width: 20%;">Pregunta</th>
                                 <th style="width: 20%;">Respuesta</th>
-                                <th style="width: 5%;">Valor</th>
+                                @if($appliedGuide->guide_id != 1)
+                                    <th style="width: 5%;">Valor</th>
+                                @endif
                             </tr>
                             </tfoot>
                         </table>

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\AgeRange;
 use App\Guide;
 use App\Question;
 use App\Reply;
+use App\StudiesLevel;
 use Illuminate\Http\Request;
 
 class FrontGuideController extends Controller
@@ -26,6 +28,10 @@ class FrontGuideController extends Controller
         $counter=0;
         $guide = Guide::find($id);
         $replies= Reply::all();
-        return view('front.guide', ['guide' => $guide, 'replies'=>$replies, 'counter'=>$counter]);
+        $ageRanges = AgeRange::all();
+        $studiesLevels = StudiesLevel::all();
+
+        return view('front.guide', ['guide' => $guide, 'replies'=>$replies, 'counter'=>$counter,
+            'ageRanges'=>$ageRanges,'studiesLevels'=>$studiesLevels ]);
     }
 }

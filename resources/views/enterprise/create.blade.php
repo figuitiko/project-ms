@@ -77,13 +77,14 @@
                 <div class="form-group">
                     <label class="control-label">Tipos</label>
                     <div class="form-label-group">
-                        <select class="custom-select" name="guide_id" >
+                        <select class="custom-select" name="guides[]" multiple >
                             @foreach($guides as $guide)
-                                <option value="{{$guide->id}}">{{$guide->description}}</option>
+                                <option value="{{$guide->id}}">{{$guide->title}}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
+
 
 
 

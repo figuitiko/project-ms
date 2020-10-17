@@ -24,6 +24,6 @@ class Guide extends Model
 //        return $this->hasMany(Reply::class);
 //    }
     public function enterprises(){
-        return $this->hasMany(Enterprise::class);
+        return $this->belongsToMany(Enterprise::class);
     }
 }

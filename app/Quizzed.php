@@ -12,4 +12,10 @@ class Quizzed extends Model
     public function appliedGuide(){
         return $this->hasOne(AppliedGuide::class);
     }
+    public function ageRange(){
+        return $this->belongsTo(AgeRange::class);
+    }
+    public function studiesLevel(){
+        return $this->belongsTo(StudiesLevel::class);
+    }
 }

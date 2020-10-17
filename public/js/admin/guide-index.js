@@ -1,4 +1,4 @@
-const baseUrl= 'http://127.0.0.1:8000/';
+const baseUrl= '/';
 
 
 $('table tr td:last-child button ').on('click',function () {
@@ -18,6 +18,9 @@ $('table tr td:last-child button ').on('click',function () {
         $('#enterprise_to_activate').show();
     }
 })
+
+
+
 
 $('#modal-activate').on('click', function (e) {
     e.preventDefault();
@@ -44,7 +47,7 @@ $('#modal-activate').on('click', function (e) {
 
     var settingActivate = {
 
-        url: baseUrl+"admin/guide/"+guide['id'],
+        url: "/admin/guide/"+guide['id'],
         type: 'PUT',
         dataType: "JSON",
         data: {
@@ -58,6 +61,7 @@ $('#modal-activate').on('click', function (e) {
     };
 
     $.ajax(settingActivate).done(function (response) {
+
         console.log("it Work");
         console.log(response);
         $('#modal-activated').modal('toggle');
@@ -72,7 +76,7 @@ $('#modal-activate').on('click', function (e) {
             $('#activate-msg').text('Se ha desactivado la guia');
         }
         $("#enterprise-active").val();
-        setTimeout(function(){  window.location.href = baseUrl+"admin/guide/"; }, 3000);
+        setTimeout(function(){  window.location.href = "/admin/guide/"; }, 3000);
     })
 
     $('table tbody tr td').find('.fa-copy').on('click',function () {

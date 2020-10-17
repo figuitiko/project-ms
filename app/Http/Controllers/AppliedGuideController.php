@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\DB;
 
 class AppliedGuideController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      *
@@ -44,54 +46,84 @@ class AppliedGuideController extends Controller
     {
 
 
+
         $only_guestion = array();
         foreach ($request->all() as $key => $value) {
             if (strpos($key, 'question') === 0) {
                 $only_guestion[$key] = $value;
             }
         }
-       //dd($only_guestion); exit;
+
 
 
         try {
             DB::beginTransaction();
             $enterprise = Enterprise::where('id',$request->enterprise_id)->first();
-            $name_enterprise = $enterprise->name;
 
 
 
-            $quizzed = new Quizzed();
-            $quizzed->enterprise_id = $request->enterprise_id;
-            $quizzed->name = $request->name;
-            $quizzed->last_name = $request->last_name;
-            $quizzed->job = $request->job;
-            $quizzed->age = $request->age;
-            $quizzed->studies= $request->studies;
-            $quizzed->save();
+            if($request->guide_id == "1"){
+                $quizzed = new Quizzed();
+                $quizzed->enterprise_id = $request->enterprise_id;
+                $quizzed->name = $request->name;
+                $quizzed->last_name = $request->last_name;
+                $quizzed->job = $request->job;
+                $quizzed->age_range_id = $request->ageRange;
+                $quizzed->studies_level_id= $request->studiesLevel;
+                $quizzed->department= $request->department;
+                $quizzed->position_kind= $request->kind_job;
+                $quizzed->civil_state= $request->civil_state;
+                $quizzed->kind_contract= $request->kind_contract;
+                $quizzed->rotation_turn= $request->rotation_turn;
+                $quizzed->current_position_time= $request->current_position_time;
+                $quizzed->enterprise_time= $request->enterprise_time;
+                $quizzed->type_day= $request->type_day;
+                $quizzed->save();
+            }
+
 
             $applied_guide= new AppliedGuide();
             $applied_guide->guide_id = $request->guide_id;
             $applied_guide->enterprise_id = $request->enterprise_id;
-            $applied_guide->quizzed_id = $quizzed->id;
+            if(isset($quizzed)){
+                $applied_guide->quizzed_id = $quizzed->id;
+            }
+
             $applied_guide->save();
 
             $the_guide = Guide::where('id', $request->guide_id)->first();
             $first_items= unserialize($the_guide->first_items);
             $second_items = unserialize($the_guide->second_items);
 
-            foreach ($only_guestion as $value)
-            {
-                $question_reply = explode(",", $value);
+               if($request->guide_id ===1){
+                   foreach ($only_guestion as  $key=>$value){
+                       $question_reply = explode(",", $value);
+                       $given_reply = new GivenReply();
+                       $given_reply->reply_id = $question_reply[0];
+                       $given_reply->question_id = $question_reply[1];
+                       $given_reply->applied_guide_id = $applied_guide->id;
 
-               // dd($question_reply);
-                $given_reply = new GivenReply();
-                $given_reply->reply_id = $question_reply[0];
-                $given_reply->question_id = $question_reply[1];
-                $given_reply->applied_guide_id = $applied_guide->id;
-                $given_reply->value = $given_reply->scopeValueByGivenRepliesGuide($first_items,$second_items,$question_reply[0],$question_reply[1]);
+                   }
+               }else{
+                   foreach ($only_guestion as $value)
+                   {
+                       $question_reply = explode(",", $value);
 
-                $given_reply->save();
-            }
+
+
+                       // dd($question_reply);
+                       $given_reply = new GivenReply();
+                       $given_reply->reply_id = $question_reply[0];
+                       $given_reply->question_id = $question_reply[1];
+                       $given_reply->applied_guide_id = $applied_guide->id;
+                       $given_reply->value = $given_reply->scopeValueByGivenRepliesGuide($first_items,$second_items,$question_reply[0],$question_reply[1]);
+
+
+                       $given_reply->save();
+                   }
+               }
+
+
 
 
 

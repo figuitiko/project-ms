@@ -61,8 +61,8 @@ $(document).ready(function () {
 
      validatorFront('surveyed-form-2');
 
-    $('#question_header').fadeOut();
-    $('.category_wrapper_first').fadeOut();
+
+    //$('.category_wrapper_first').fadeOut();
     $('.category_wrapper_second').fadeOut();
     $('.category_wrapper_third').fadeOut();
     $('.category_wrapper_four').fadeOut();

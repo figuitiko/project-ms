@@ -24,7 +24,10 @@
                                 <tr>
                                     <th style="width: 5%;">No </th>
                                     <th style="width: 30%;">Empresa</th>
+                                    <th style="width: 30%;">Tipo de Guia</th>
                                     <th style="width: 30%;">Enquestado</th>
+
+
                                     <th style="width: 30%;">Realizada</th>
                                     <th style="width: 5%;"></th>
                                     <th style="width: 5%;"></th>
@@ -35,7 +38,13 @@
                                     <tr>
                                         <td>{{$counter = $counter+1}}</td>
                                         <td>{{$applied_guide->enterprise->name}}</td>
+                                        <td>{{$applied_guide->guide->title}}</td>
+
+                                        @if($applied_guide->guide->id == 1)
                                         <td>{{$applied_guide->quizzed->name}}</td>
+                                            @else
+                                            <td>no tiene aplicantes</td>
+                                        @endif
                                         <td>{{date("d/m/Y", strtotime("$applied_guide->created_at"))}}</td>
 
                                         <td class="cell-center">
@@ -60,7 +69,10 @@
                                 <tr>
                                     <th style="width: 5%;">No </th>
                                     <th style="width: 30%;">Empresa</th>
+                                    <th style="width: 30%;">Tipo de Guia</th>
                                     <th style="width: 30%;">Enquestado</th>
+
+
                                     <th style="width: 30%;">Realizada</th>
                                     <th style="width: 5%;"></th>
                                     <th style="width: 5%;"></th>

@@ -9,7 +9,7 @@
             <p class="lead"><strong>Somos el grupo Consultores</strong><br> Estamos a sus servicios</p>
             <hr>
             <p>
-               Algún problema <a href="mailto:someone@example.com?Subject=Hello%20again" target="_top">Contactenos</a>
+               Algún problema <a href="mailto:martubix@gmail.com?Subject=hola%20sobre%20la%20Guía" target="_blank">Contactenos</a>
             </p>
 {{--            <p class="lead">--}}
 {{--                <a class="btn btn-primary btn-sm" href="https://bootstrapcreative.com/" role="button">Continue to homepage</a>--}}

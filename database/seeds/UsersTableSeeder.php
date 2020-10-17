@@ -15,9 +15,15 @@ class UsersTableSeeder extends Seeder
         //
         User::truncate();
         $admin = new User;
-        $admin->name = 'frank';
-        $admin->email = 'frankfigao@gmail.com';
-        $admin->password = bcrypt('zaq123');
+        $admin->name = 'Martha';
+        $admin->email = 'martubix@gmail.com ';
+        $admin->password = bcrypt('Tlaxcala2020');
+        $admin->save();
+
+        $admin = new User;
+        $admin->name = 'Sergio';
+        $admin->email = 'sgnieva@hotmail.com';
+        $admin->password = bcrypt('Puebla2020');
         $admin->save();
     }
 }

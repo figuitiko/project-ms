@@ -63,7 +63,7 @@ class EnterpriseController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all()); exit;
+       // dd($request->all()); exit;
         $this->validate($request, [
             'name'           => 'required',
             'social_reason'          => 'required|string|max:250',
@@ -72,10 +72,12 @@ class EnterpriseController extends Controller
             'phone'        => 'required|numeric',
             'address'         => 'required|string',
             'activity'         => 'required|string',
-            'guide_id'           => 'required|numeric',
+            'guides'           => 'required',
 
         ]);
         try {
+
+            //dd($request);
             DB::beginTransaction();
             $enterprise= new Enterprise();
             $enterprise->name = $request->name;
@@ -85,8 +87,11 @@ class EnterpriseController extends Controller
             $enterprise->phone =$request->phone;
             $enterprise->address =$request->address;
             $enterprise->activity =$request->activity;
-            $enterprise->guide_id =$request->guide_id;
+
+
+            $enterprise->surveyed_amount =$enterprise->getAmountSurveyed() ;
             $enterprise->save();
+            $enterprise->guides()->attach($request->guides);
             DB::commit();
         }
         catch (ErrorException $e){
@@ -110,15 +115,42 @@ class EnterpriseController extends Controller
        $givenReplies = DB::table('given_replies')
                         ->join('applied_guides','given_replies.id','=', 'given_replies.applied_guide_id')
                          ->get();
-       dd($givenReplies);
+
         $replies= [];
             foreach ($appliedGuides as $guide){
                 $replies[] = GivenReply::where('applied_guide_id',$guide->id)->get();
             }
 
-            dd($replies);
+        $quizzedsYes = DB::table('quizzeds')
+                        ->join('applied_guides', 'quizzeds.id', '=','applied_guides.quizzed_id')
+                        ->join('given_replies','given_replies.applied_guide_id','=','applied_guides.id' )
+                        ->join('replies','replies.id','=', 'given_replies.reply_id')
+                        ->join('questions','questions.id', '=','given_replies.question_id' )
+                         ->select('quizzeds.name', 'quizzeds.last_name', DB::raw('replies.content as contentReply' ), 'questions.content')
+                        ->where('quizzeds.enterprise_id',$enterprise->id  )
+                        ->having('contentReply','=','Si')
+                        ->get();
 
-        return view('enterprise.show', ['enterprise' => $enterprise, 'counter'=>$counter]);
+
+        $quizzedWithTotal = DB::table('quizzeds')
+                            ->join('applied_guides', 'quizzeds.id', '=','applied_guides.quizzed_id')
+                            ->join('given_replies','given_replies.applied_guide_id','=','applied_guides.id' )
+                            ->join('replies','replies.id','=', 'given_replies.reply_id')
+                            ->join('questions','questions.id', '=','given_replies.question_id' )
+                            ->select('quizzeds.name', 'quizzeds.last_name','replies.content', DB::raw('count(quizzeds.name) as total'))
+                            ->where('quizzeds.enterprise_id',$enterprise->id  )
+                            ->groupBy('quizzeds.name', 'quizzeds.last_name','replies.content')
+                            ->having('replies.content','=','Si')
+                            ->get();
+
+
+
+
+
+
+
+        return view('enterprise.show', ['enterprise' => $enterprise, 'counter'=>$counter,'givenReplies'=>$givenReplies,
+            'quizzedsYes'=>$quizzedsYes, 'quizzedWithTotal'=>$quizzedWithTotal]);
     }
 
     /**
@@ -152,7 +184,7 @@ class EnterpriseController extends Controller
             'phone'        => 'required|numeric',
             'address'         => 'required|string',
             'activity'         => 'required|string',
-            'guide_id'           => 'required|numeric',
+
         ]);
 
         try {
@@ -165,8 +197,10 @@ class EnterpriseController extends Controller
             $enterprise->phone =$request->phone,
             $enterprise->address =$request->address,
             $enterprise->activity =$request->activity,
-            $enterprise->guide_id =$request->guide_id
+
             ]);
+            $enterprise->guides()->detach([1,2,3]);
+            $enterprise->guides()->attach($request->guides);
 
 
             DB::commit();

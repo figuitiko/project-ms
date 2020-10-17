@@ -9,11 +9,11 @@
 {{--                <div class="links">--}}
 {{--                    <a href="{{route('guide.create')}}" class="btn btn-primary">Nueva Guia</a>--}}
 {{--                </div>--}}
-                <div class="links">
+               {{-- <div class="links">
                     <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal">
                         <i class="fa fa-plus"></i>  Crear Nueva Guía
                     </button>
-                </div>
+                </div>--}}
                 <br>
                 @if(Session::has('menssage'))
                     <div class="alert alert-success" role="alert">
@@ -231,7 +231,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button id="modal-activate" data-token="{{ csrf_token() }}"   type="button" class="btn btn-primary">Save changes</button>
+                    <button id="modal-activate" data-token="{{ csrf_token() }}"   type="button" class="btn btn-primary" >Guardar</button>
                 </div>
             </div>
         </div>

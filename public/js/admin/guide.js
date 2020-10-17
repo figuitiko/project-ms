@@ -1,4 +1,4 @@
-const baseUrl= 'http://127.0.0.1:8000/';
+const baseUrl= '/';
 $(document).ready(function() {
     $("#add").click(function(){
         $('#questions').append(inputHtml());

@@ -17,11 +17,20 @@ class CreateQuizzedsTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->unsignedInteger('enterprise_id');
+            $table->unsignedInteger('age_range_id');
+            $table->unsignedInteger('studies_level_id');
             $table->string('name');
             $table->string('last_name');
             $table->longText('job');
-            $table->integer('age');
-            $table->longText('studies');
+            $table->longText('department');
+            $table->longText('position_kind');
+            $table->longText('civil_state');
+            $table->longText('kind_contract');
+            $table->longText('type_day');
+            $table->longText('rotation_turn');
+            $table->longText('current_position_time');
+            $table->longText('enterprise_time');
+
         });
     }
 

@@ -48,7 +48,7 @@
                             <tbody>
                             @foreach($guide->questions as $question)
                                 <tr>
-                                    <td>{{$question->id}}</td>
+                                    <td>{{$question->number}}</td>
                                     <td>{{$question->content}}</td>
                                 </tr>
                             @endforeach

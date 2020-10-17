@@ -26,6 +26,7 @@ $(document).ready(function () {
                 name: "required",
                 last_name: "required",
                 job: "required",
+                department: "required",
                 age: {
                     required: true,
                     number: true
@@ -39,6 +40,7 @@ $(document).ready(function () {
                 job: "Debe introducir la ocupacion",
                 age:"Debe instroducir la edad y el valor ser numérico",
                 studies: "Debe introducir los estudios",
+                department: "El Departamento es Requerido",
 
             },
             // Make sure the form is submitted to the destination defined
@@ -61,34 +63,11 @@ $(document).ready(function () {
 
      validatorFront('surveyed-form-2');
 
-    $('#question_header').fadeOut();
-    $('.category_wrapper_first').fadeOut();
+
     $('.category_wrapper_second').fadeOut();
     $('.category_wrapper_third').fadeOut();
     $('#send_button').fadeOut();
-    $(document).on('click', '#user_button',function (e) {
-        e.preventDefault();
 
-
-       var name = $('#name').val();
-       var lastName = $('#last_name').val();
-       var job = $('#job').val();
-       var age = $('#age').val();
-       var studies = $('#studies').val();
-
-       if(name != '' && lastName != '' && job != '' && age != '' && studies != ''){
-          if(confirm("Esta seguro que desea pasar a las siguientes preguntas")){
-              $('#user-data').fadeOut();
-              $('#question_header').fadeIn();
-              $('.category_wrapper_first').fadeIn();
-          }
-
-       }else {
-           alert("Por favor no puede dejar campos vacios");
-           return;
-       }
-
-    });
 
     //----------------------- first question pages--------------------------------------------------------------------------
 
@@ -166,9 +145,9 @@ $(document).ready(function () {
     $('#question_second_button').click(function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var checker_1 = 0;
-        var checker_2 = 0;
-        var checker_3 = 0;
+        let checker_1 = 0;
+        let checker_2 = 0;
+        let checker_3 = 0;
         $('#dataTable_4 tr td .form-check-input:checked').each(function () {
             console.log($(this).length);
             if($(this).length > 0 ){
@@ -251,6 +230,11 @@ $(document).ready(function () {
         $('#dataTable_8').hide();
         $('#text_yes_1').hide();
     })
+
+
+    /*------------------------------------guide one-----------------------------------*/
+
+
 
 
 });

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAppliedGuidesTable extends Migration
+class CreateStudiesLevelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreateAppliedGuidesTable extends Migration
      */
     public function up()
     {
-        Schema::create('applied_guides', function (Blueprint $table) {
+        Schema::create('studies_levels', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->unsignedInteger('guide_id');
-            $table->unsignedInteger('enterprise_id');
-            $table->unsignedInteger('quizzed_id')->nullable();
-
-
+            $table->longText('content');
         });
     }
 
@@ -31,6 +27,6 @@ class CreateAppliedGuidesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('applied_guides');
+        Schema::dropIfExists('studies_levels');
     }
 }

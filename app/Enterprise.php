@@ -8,11 +8,12 @@ class Enterprise extends Model
 {
     //
     protected $table = 'enterprises';
-    protected $fillable =['id','description','guide_type_id'];
+    protected $fillable =['id','description'];
 
 
-    public function guide(){
-        return $this->belongsTo(Guide::class);
+
+    public function guides(){
+        return $this->belongsToMany(Guide::class);
     }
     public function appliedGuides(){
         return $this->hasMany(AppliedGuide::class);

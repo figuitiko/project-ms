@@ -40,13 +40,107 @@
                                 <th style="width: 20%;">Actividad Principal</th>
                                 <th style="width: 24%;">{{$enterprise->activity}}</th>
                             </tr>
-                            <tr>
+
+
                                 <th style="width: 20%;">Guia que Le Pertenece</th>
-                                <th style="width: 24%;">{{$enterprise->guide->description}}</th>
-                            </tr>
+                                <td>
+                                    @forelse($enterprise->guides as $guide)
+                                       {{$guide->title}},&nbsp;
+                                    @empty
+                                    <span>no tiene guias</span>
+                                </td>
+
+
+
+
+                                @endforelse
+
 
                              </thead>
                         </table>
+
+{{------------------------------table the one that are saying yes-------------------}}
+                    <div class="clearfix"></div>
+                        <hr>
+                        <h1>Datos de encuestados que Respondieron que "Si"</h1>
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+
+                                <th style="width: 20%;">Nombre</th>
+                                <th style="width: 20%;">Apellidos</th>
+                                <th style="width: 20%;">Pregunta</th>
+                                <th style="width: 5%;">Respuesta</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($quizzedsYes as $key => $quizzed)
+                                <tr>
+
+                                    <td>{{$quizzed->name}}</td>
+                                    <td>{{$quizzed->last_name}}</td>
+                                    <td>{{$quizzed->content}}</td>
+                                    <td>{{$quizzed->contentReply}}</td>
+
+
+
+                                </tr>
+                            @endforeach
+                            </tbody>
+                            <tfoot>
+                            <tr>
+
+                                <th style="width: 20%;">Nombre</th>
+                                <th style="width: 20%;">Apellidos</th>
+                                <th style="width: 20%;">Pregunta</th>
+                                <th style="width: 5%;">Respuesta</th>
+                            </tr>
+                            </tfoot>
+                        </table>
+
+            {{------------------      --------------table the one that are saying yes-------------------}}
+                        <div class="clearfix"></div>
+                        <hr>
+                        <h1>Datos de encuestados que Respondieron que "Si"</h1>
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+
+                                <th style="width: 20%;">Nombre</th>
+                                <th style="width: 20%;">Apellidos</th>
+                                <th style="width: 20%;">Respuesta</th>
+                                <th style="width: 5%;">total</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($quizzedWithTotal as $key => $quizzedTotal)
+                                <tr>
+
+                                    <td>{{$quizzedTotal->name}}</td>
+                                    <td>{{$quizzedTotal->last_name}}</td>
+                                    <td>{{$quizzedTotal->content}}</td>
+                                    <td>{{$quizzedTotal->total}}</td>
+
+
+
+                                </tr>
+                            @endforeach
+                            </tbody>
+                            <tfoot>
+                            <tr>
+
+                                <th style="width: 20%;">Nombre</th>
+                                <th style="width: 20%;">Apellidos</th>
+                                <th style="width: 20%;">Respuesta</th>
+                                <th style="width: 5%;">total</th>
+                            </tr>
+                            </tfoot>
+                        </table>
+
+
+
                     </div>
                 </div>
             </div>

@@ -25,7 +25,7 @@ class CreateEnterprisesTable extends Migration
             $table->longText('address');
             $table->longText('activity');
 
-            $table->unsignedInteger('guide_id');
+
         });
     }
 
