@@ -6,9 +6,9 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 justify-content-center">
-                <div class="links">
+               {{-- <div class="links">
                     <a href="{{route('guide.create')}}" class="btn btn-primary">Nueva Guia</a>
-                </div>
+                </div>--}}
                 <br>
                 <div class="card">
                     <div class="card-header"><i class="fas fa-eye"></i> Detalle de producto</div>

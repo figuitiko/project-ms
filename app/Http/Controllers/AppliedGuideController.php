@@ -7,12 +7,28 @@ use App\Enterprise;
 use App\GivenReply;
 use App\Guide;
 use App\Quizzed;
+use App\Repositories\AppliedGuideRepositoryInterface;
+use PDF;
+use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Exception;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 class AppliedGuideController extends Controller
 {
 
+    /**
+     * @var AppliedGuideRepositoryInterface
+     */
+    private $appliedGuideRepository;
+
+    public function __construct(AppliedGuideRepositoryInterface $appliedGuideRepository)
+    {
+        $this->appliedGuideRepository = $appliedGuideRepository;
+    }
 
     /**
      * Display a listing of the resource.
@@ -44,8 +60,6 @@ class AppliedGuideController extends Controller
      */
     public function store(Request $request)
     {
-
-
 
         $only_guestion = array();
         foreach ($request->all() as $key => $value) {
@@ -95,6 +109,7 @@ class AppliedGuideController extends Controller
             $first_items= unserialize($the_guide->first_items);
             $second_items = unserialize($the_guide->second_items);
 
+
                if($request->guide_id ===1){
                    foreach ($only_guestion as  $key=>$value){
                        $question_reply = explode(",", $value);
@@ -104,19 +119,20 @@ class AppliedGuideController extends Controller
                        $given_reply->applied_guide_id = $applied_guide->id;
 
                    }
-               }else{
+               }else
+                   {
                    foreach ($only_guestion as $value)
                    {
                        $question_reply = explode(",", $value);
 
 
 
-                       // dd($question_reply);
+
                        $given_reply = new GivenReply();
                        $given_reply->reply_id = $question_reply[0];
                        $given_reply->question_id = $question_reply[1];
                        $given_reply->applied_guide_id = $applied_guide->id;
-                       $given_reply->value = $given_reply->scopeValueByGivenRepliesGuide($first_items,$second_items,$question_reply[0],$question_reply[1]);
+                       $given_reply->value = $given_reply->scopeValueByGivenRepliesGuide($first_items,$second_items,$question_reply[0],$question_reply[2]);
 
 
                        $given_reply->save();
@@ -191,6 +207,64 @@ class AppliedGuideController extends Controller
             ->route('applied.index')
             ->with('message', 'La guia  ha sido Eliminada');
     }
+
+    public function report(Request $request){
+
+
+        $arrayToData = explode(',',$request->data);
+
+        $results = $this->appliedGuideRepository->questionRepliesReport($request->enterprise,$request->guide, $arrayToData);
+
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setTitle("Reporte de preguntas");
+        $sheet->setCellValue('A1', 'id');
+        $sheet->setCellValue('B1', 'typo de guía');
+        $sheet->setCellValue('C1', 'Numero Pregunta');
+        $sheet->setCellValue('D1', 'Contenido Pregunta');
+        $sheet->setCellValue('E1', 'respuesta');
+        $sheet->setCellValue('F1', 'Valor');
+        if(!empty($results)){
+            $i=2;
+            foreach ($results as $result){
+
+
+                $sheet->setCellValue('A'.$i, $result->id);
+                $sheet->setCellValue('B'.$i, $result->guide_id);
+                $sheet->setCellValue('C'.$i, $result->number);
+                $sheet->setCellValue('D'.$i, $result->question);
+                $sheet->setCellValue('E'.$i, $result->content);
+                $sheet->setCellValue('F'.$i, $result->value);
+                $i++;
+            }
+
+        }
+        $writer = new Xlsx($spreadsheet);
+
+        $d = date('Y-m-d-h:i:sa');
+
+        $fileName = 'Reporte-guias-'.$d.'.xlsx';
+
+        $temp_file = tempnam(sys_get_temp_dir(),$fileName);
+
+
+
+// Create the file
+        try {
+            $writer->save($temp_file);
+        }catch (Exception $e){
+            throw  new Exception("It cant be write", $e);
+        }
+
+
+        return response()->download($temp_file, $fileName, ['Content-Type'=> 'application/xlsx']);
+
+
+
+    }
+
+
 
 
 }

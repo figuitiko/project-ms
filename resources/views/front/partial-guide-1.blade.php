@@ -92,7 +92,7 @@
                                         @if($reply->content != 'Si' && $reply->content != 'No' )
                                         <td class="text-center">
 
-                                            <input class="form-check-input " type="radio"  name="question{{$question->id}}" value="{{$reply->id}},{{$question->id}}" >
+                                            <input class="form-check-input " type="radio"  name="question{{$question->id}}" value="{{$reply->id}},{{$question->id}},{{$question->number}}" >
                                         </td>
                                         @endif
 

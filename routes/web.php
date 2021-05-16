@@ -16,6 +16,7 @@ Route::get('/front-guides','FrontGuideController@index')->name('frontGuide');
 Route::get('/guide/{id}','FrontGuideController@guide')->name('guide');
 Route::post('/save-guide', 'AppliedGuideController@store')->name('save.guide');
 
+
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('admin');
@@ -29,7 +30,13 @@ Route::resource('/admin/quizzed','QuizzedController');
 Route::delete('admin/question/{id}', 'QuestionController@destroy');
 Route::put('admin/question/{question}', 'QuestionController@update');
 Route::resource('/admin/enterprise','EnterpriseController');
+Route::get('/admin/charts/{id}', 'EnterpriseController@chart')->name('chart');
+
+
 
 Route::get('/admin/applied-guides', 'AppliedGuideController@index')->name('applied.index');
 Route::delete('/admin/applied-guides/{applied_guide}/delete', 'AppliedGuideController@destroy')->name('applied.destroy');
 Route::get('/admin/{applied_guide}/show', 'AppliedGuideController@show')->name('applied.show');
+
+Route::get('/admin/applied-guide-report', 'AppliedGuideController@report')->name('report.guide');
+Route::get('/admin/pdf/{id}', 'EnterpriseController@pdf')->name('pdf.guide');

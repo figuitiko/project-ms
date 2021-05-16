@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AppliedGuide extends Model
 {
-    protected $with= ['guide', 'enterprise'];
+    protected $with= ['guide', 'enterprise','quizzed'];
     public function enterprise(){
         return $this->belongsTo(Enterprise::class);
     }

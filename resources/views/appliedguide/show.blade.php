@@ -31,10 +31,71 @@
                             </tr>
                             @endif
                             @if($appliedGuide->guide->id == 1)
+                                <tr>
+                                    <th style="width: 20%;">Rango de Edad</th>
+                                    <th style="width: 24%;">{{$appliedGuide->quizzed->ageRange->content}}</th>
+                                </tr>
+                            @endif
+                            @if($appliedGuide->guide->id == 1)
+                                <tr>
+                                    <th style="width: 20%;">Rango de Estudio</th>
+                                    <th style="width: 24%;">{{$appliedGuide->quizzed->studiesLevel->content}}</th>
+                                </tr>
+                            @endif
+                            @if($appliedGuide->guide->id == 1)
                             <tr>
                                 <th style="width: 20%;">Ocupación</th>
                                 <th style="width: 24%;">{{$appliedGuide->quizzed->job}}</th>
                             </tr>
+                            @endif
+                            @if($appliedGuide->guide->id == 1)
+                                <tr>
+                                    <th style="width: 20%;">Departamento</th>
+                                    <th style="width: 24%;">{{$appliedGuide->quizzed->department}}</th>
+                                </tr>
+                            @endif
+
+                            @if($appliedGuide->guide->id == 1)
+                                <tr>
+                                    <th style="width: 20%;">Tipo de Puesto</th>
+                                    <th style="width: 24%;">{{$appliedGuide->quizzed->position_kind}}</th>
+                                </tr>
+                            @endif
+                            @if($appliedGuide->guide->id == 1)
+                                <tr>
+                                    <th style="width: 20%;">Estado Civil</th>
+                                    <th style="width: 24%;">{{$appliedGuide->quizzed->civil_state}}</th>
+                                </tr>
+                            @endif
+                            @if($appliedGuide->guide->id == 1)
+                                <tr>
+                                    <th style="width: 20%;">Tipo de Contrato</th>
+                                    <th style="width: 24%;">{{$appliedGuide->quizzed->kind_contract}}</th>
+                                </tr>
+                            @endif
+                            @if($appliedGuide->guide->id == 1)
+                                <tr>
+                                    <th style="width: 20%;">Tipo de Jornada</th>
+                                    <th style="width: 24%;">{{$appliedGuide->quizzed->type_day}}</th>
+                                </tr>
+                            @endif
+                            @if($appliedGuide->guide->id == 1)
+                                <tr>
+                                    <th style="width: 20%;">Rotación de Turno</th>
+                                    <th style="width: 24%;">{{$appliedGuide->quizzed->rotation_turn}}</th>
+                                </tr>
+                            @endif
+                            @if($appliedGuide->guide->id == 1)
+                                <tr>
+                                    <th style="width: 20%;">Tiempo en el puesto actual: Experiencia</th>
+                                    <th style="width: 24%;">{{$appliedGuide->quizzed->current_position_time}}</th>
+                                </tr>
+                            @endif
+                            @if($appliedGuide->guide->id == 1)
+                                <tr>
+                                    <th style="width: 20%;">Tiempo laboral en la empresa: Experiencia</th>
+                                    <th style="width: 24%;">{{$appliedGuide->quizzed->enterprise_time}}</th>
+                                </tr>
                             @endif
                             <tr>
                                 <th style="width: 20%;">Numero de Guia</th>

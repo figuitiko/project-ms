@@ -34,6 +34,7 @@ class GivenReply extends Model
                 case 5:
                     return 4;
             }
+
         }
         elseif (in_array($question, $second_items)){
             switch ($reply) {

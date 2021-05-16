@@ -91,12 +91,6 @@
                                     <span id="text_yes_1" style="color:cornflowerblue">Si su respuesta fue "SÍ", responda las preguntas siguientes. Si su respuesta fue "NO", ha concluido el cuestionario.</span>
                                 @endif
 
-
-
-
-
-
-
                                                 <table class="table table-bordered" id="dataTable_{{$category->id}}" width="100%" cellspacing="0">
                                                     <thead>
                                                     <tr>
@@ -118,7 +112,7 @@
                                                                 @if($reply->content != 'Si' && $reply->content != 'No' )
                                                                 <td class="text-center">
 
-                                                                    <input class="form-check-input " type="radio"  name="question{{$question->id}}" value="{{$reply->id}},{{$question->number}}" >
+                                                                    <input class="form-check-input " type="radio"  name="question{{$question->id}}" value="{{$reply->id}},{{$question->id}},{{$question->number}}" >
                                                                 </td>
                                                                 @endif
                                                             @endforeach

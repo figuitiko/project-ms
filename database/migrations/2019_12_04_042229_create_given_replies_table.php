@@ -20,6 +20,9 @@ class CreateGivenRepliesTable extends Migration
             $table->unsignedInteger('reply_id');
             $table->unsignedInteger('applied_guide_id');
             $table->integer('value')->nullable();
+
+            $table->foreign('applied_guide_id')->references('id')
+                        ->on('applied_guides')->onDelete('cascade');
         });
     }
 

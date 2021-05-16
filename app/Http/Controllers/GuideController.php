@@ -219,16 +219,31 @@ class GuideController extends Controller
 
 //              dd($enterprise->surveyed_amount); exit;
                 $surveyed_max = $enterprise->surveyed_amount;
-                if($applied_guide_amount <= $surveyed_max ) {
-                   if($request->is_activated != null){
+
+
+               // if($applied_guide_amount <= $surveyed_max ) {
+
+                   if($request->is_activated != 0){
 
                        $guide->update([
                            $guide->is_activated = $request->is_activated  ,
                            $guide->active_enterprise_id = $request->active_enterprise
                        ]);
+                       $enterprise->guides()->detach([1,2,3]);
+                       $enterprise->guides()->attach([1,$guide->id]);
+                   } else{
+
+                       $guide->update([
+                           $guide->is_activated = $request->is_activated  ,
+                           $guide->active_enterprise_id = $request->active_enterprise
+                       ]);
+
+                       $enterprise->guides()->detach($guide->id);
+
                    }
 
-                }
+
+               // }
 
                return response()->json(['success'=>'Data is successfully updated']);
             }
