@@ -29,6 +29,7 @@
                                     <th style="width: 20%;">Razón Social</th>
                                     <th style="width: 20%;">Personas a Enquestar</th>
                                     <th style="width: 20%;">Cantidad de Trabajadores</th>
+                                    <th style="width: 15%;">Año</th>
                                     <th style="width: 5%;"></th>
                                     <th style="width: 5%;"></th>
                                     <th style="width: 5%;"></th>
@@ -42,11 +43,27 @@
                                         <td>{{$enterprise->social_reason}}</td>
                                         <td>{{$enterprise->surveyed_amount}}</td>
                                         <td>{{$enterprise->worker_amount}}</td>
+                                        <td>                                            
+                                            <select name="year" id="year" class="form-control year">                                                
+                                                <option value="2020">2020</option>
+                                                <option value="2021">2021</option>
+                                                <option value="2022">2022</option>
+                                                <option value="2023">2023</option>
+                                                <option value="2024">2024</option>
+                                                <option value="2025">2025</option>
+                                                <option value="2026">2026</option>
+                                                <option value="2027">2027</option>
+                                                <option value="2028">2028</option>
+                                                <option value="2029">2029</option>
+                                                <option value="2030">2030</option>
+                                            </select>
+
+                                        </td>
                                         <td class="cell-center">
                                             <a href="{{route('enterprise.edit', $enterprise)}}" class="fa fa-edit"
                                                title="Editar el Empresa"></a></td>
                                         <td class="cell-center">
-                                            <a href="{{route('enterprise.show',$enterprise)}}" class="fa fa-eye"
+                                            <a  href="{{route('enterprise.show',$enterprise)}}" class="fa fa-eye"
                                                title="Ver detalle de la Empresa"></a></td>
                                         <td class="cell-center">
                                             <form method="POST"
@@ -68,6 +85,7 @@
                                     <th style="width: 20%;">Razón Social</th>
                                     <th style="width: 20%;">Personas a Enquestar</th>
                                     <th style="width: 20%;">Cantidad de Trabajadores</th>
+                                    <th style="width: 15%;">Año</th>
                                     <th style="width: 5%;"></th>
                                     <th style="width: 5%;"></th>
                                     <th style="width: 5%;"></th>
@@ -82,3 +100,8 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+
+    <script src="{{ asset('js/admin/enterprise_index.js') }}"></script>
+
+@endpush

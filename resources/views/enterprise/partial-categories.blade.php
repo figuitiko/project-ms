@@ -5,7 +5,7 @@
     </div>
     <div class="card-body">
         <div  class="row mt-5">
-            @if( $enterprise->guides()->get()->contains('id',2) && count($guideReportValues) > 0)
+            @if( count($guideReportValues) > 0)
                 <table id="datatable-responsive-basic" class="table table-striped table-bordered dt-responsive"
                        cellspacing="0" width="100%">
                     <thead>

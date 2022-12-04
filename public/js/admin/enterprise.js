@@ -198,8 +198,7 @@ $(document).ready(function(){
             dataType: "JSON",
 
         }
-
-        $.ajax(settingToSend)
+fa-eye(settingToSend)
             .done(function (data) {
                 console.log('data send'+data);
             });*/
@@ -207,3 +206,17 @@ $(document).ready(function(){
 
 
 });
+
+
+//---------------------href params-------------------
+// add href params
+// $(document).ready(function(){
+//     console.log("rocking on route");
+//     $("#year").change(function(){
+//         let year = $(this).val();        
+//         let _href = $("a.fa-eye").attr("href");
+//         $("a.fa-eye").attr("href", _href + '&year=' + year);
+//     });
+    
+
+// });

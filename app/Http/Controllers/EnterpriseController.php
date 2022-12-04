@@ -123,6 +123,13 @@ class EnterpriseController extends Controller
      */
     public function show(Enterprise $enterprise)
     {
+        $url = parse_url($_SERVER['REQUEST_URI']);
+        // extract the last four characters of the url
+        $year = substr($url['path'], -4);
+        
+
+        
+       
         $counter=1;
       //  dd($enterprise);
        $appliedGuides= AppliedGuide::where('enterprise_id',$enterprise->id)->get();
@@ -154,11 +161,11 @@ class EnterpriseController extends Controller
 
 
         $guideReportValues=[];
-        $guideBelong= 1;
+        $guideBelong= 1;        
+        $guide2Amount = $this->appliedGuideRepository->getGuideAmount($enterprise->id, 2, $year);
+        $guide2Amount = $guide2Amount->result;
 
-        $guide2Amount = $appliedGuides->where('guide_id',2)->count();
-
-        if( $enterprise->guides()->get()->contains('id',2) && ($guide2Amount> 0)){
+        if( ($guide2Amount> 0)){
             $reportData= [ 'workEnvironmentAvgCat'=>[2,1,3],
                 'workCondDomainAvg' =>[2,1,3],
                 'dangerConditionsDimAvg' =>[2],
@@ -194,13 +201,18 @@ class EnterpriseController extends Controller
 
             ];
             $guideReportValues =   $this->guideValues($guide2Amount, $enterprise->id, 2,
-                $reportData);
+                $reportData, $year);
 
             $guideBelong = 2;
         }
-
-        $guide3Amount = $appliedGuides->where('guide_id',3)->count();
-        if( $enterprise->guides()->get()->contains('id',3) && ($guide3Amount> 0)){
+        $guide3Amount = $this->appliedGuideRepository->getGuideAmount($enterprise->id, 3, $year);
+        $guide3Amount = $guide3Amount->result;
+        // dd($guide3Amount->result);
+        // $guide3Amount = $appliedGuides->where('guide_id',3)->whereYear('created_at', '=', date('Y'))->count();
+        // dd($guide3Amount);
+        // dd($enterprise->guides()->get()->contains('id',3) );
+        // dd($guide3Amount);
+        if(  ($guide3Amount > 0)){
             $reportData= [ 'workEnvironmentAvgCat'=>[1,3,2,4,5],
                 'workCondDomainAvg' =>[1,3,2,4,5],
                 'dangerConditionsDimAvg' =>[1, 3],
@@ -243,8 +255,14 @@ class EnterpriseController extends Controller
                 'unstableWorkSituationAvg'=>[53, 54],
                 ];
 
-            $guideReportValues=   $this->guideValues($guide3Amount, $enterprise->id, 3,
-                $reportData);
+            $guideReportValues =   $this->guideValues(
+                $guide3Amount,
+                $enterprise->id,
+                3,
+                $reportData,
+                $year
+            );
+                
             $guideBelong = 3;
 
         }
@@ -254,6 +272,7 @@ class EnterpriseController extends Controller
 
       //dd($categoryWorkEnvironment->result);
 
+     // dd($guideReportValues);
 
         return view('enterprise.show', ['enterprise' => $enterprise,
                                                 'counter'=>$counter,
@@ -348,26 +367,25 @@ class EnterpriseController extends Controller
 
 
 
-    private function guideValues($guideAmount, $enterpriseId, $guideId,$reportData
-                               )
+    private function guideValues(
+        $guideAmount,
+        $enterpriseId,
+        $guideId,
+        $reportData,
+        $year
+    ) {
+        $totalValueGuide = $this->appliedGuideRepository->totalGuideByEnterprise($enterpriseId, $guideId, $year);
+        // dd($totalValueGuide);
+        $totalValueGuideAvg = $totalValueGuide->result / $guideAmount;
 
-    {
-        $totalValueGuide= $this->appliedGuideRepository->totalGuideByEnterprise($enterpriseId, $guideId);
-        $totalValueGuideAvg = $totalValueGuide->result/$guideAmount;
-
-        foreach ($reportData as $key=>$report){
-            $valueSum = $this->appliedGuideRepository->appliedGuideSumByGuide($enterpriseId,$guideId,$report);
-            $valueAvg = $valueSum->result/$guideAmount;
+        foreach ($reportData as $key => $report) {
+            $valueSum = $this->appliedGuideRepository->appliedGuideSumByGuide($enterpriseId, $guideId, $report, $year);
+            $valueAvg = $valueSum->result / $guideAmount;
             $reportData[$key] = round($valueAvg);
-
         }
-        $reportData['totalValueGuideAvg'] =round($totalValueGuideAvg);
+        $reportData['totalValueGuideAvg'] = round($totalValueGuideAvg);
 
-       return $reportData;
-
-
-
-
+        return $reportData;
     }
 
     public function pdf($id){
