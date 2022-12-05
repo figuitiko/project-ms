@@ -206,17 +206,3 @@ fa-eye(settingToSend)
 
 
 });
-
-
-//---------------------href params-------------------
-// add href params
-// $(document).ready(function(){
-//     console.log("rocking on route");
-//     $("#year").change(function(){
-//         let year = $(this).val();        
-//         let _href = $("a.fa-eye").attr("href");
-//         $("a.fa-eye").attr("href", _href + '&year=' + year);
-//     });
-    
-
-// });

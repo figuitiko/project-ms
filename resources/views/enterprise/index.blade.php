@@ -44,7 +44,8 @@
                                         <td>{{$enterprise->surveyed_amount}}</td>
                                         <td>{{$enterprise->worker_amount}}</td>
                                         <td>                                            
-                                            <select name="year" id="year" class="form-control year">                                                
+                                            <select name="year" id="year" class="form-control year">   
+                                            <option>Seleccione un Año</option>                                             
                                                 <option value="2020">2020</option>
                                                 <option value="2021">2021</option>
                                                 <option value="2022">2022</option>

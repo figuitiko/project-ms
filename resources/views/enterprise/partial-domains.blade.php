@@ -5,13 +5,13 @@
         <i style="float:right; cursor: pointer" class="fas fa-window-close"></i>
     </div>
     <div class="card-body">
-        @if( count($guideReportValues) > 0)
+        @if( $enterprise->worker_amount <= 50) && count($guideReportValues) > 0)
 
             @include('enterprise.partial-domains-guide-2')
 
 
         @endif
-            @if( count($guideReportValues) > 0)
+            @if( $enterprise->worker_amount > 50 && count($guideReportValues) > 0)
 
                 @include('enterprise.partial-domains-guide-3')
 

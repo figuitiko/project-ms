@@ -5,7 +5,7 @@
     </div>
     <div class="card-body">
         <div  class="row">
-            @if(count($guideReportValues) > 0 )
+            @if(count($guideReportValues) > 0 && $enterprise->worker_amount <= 50)
                 <table id="datatable-responsive-basic" class="table table-striped table-bordered dt-responsive"
                        cellspacing="0" width="100%">
                     <thead>
@@ -68,7 +68,7 @@
                 </table>
 
             @endif
-            @if(count($guideReportValues) > 0  )
+            @if(count($guideReportValues) > 0 && $enterprise->worker_amount > 50)
                 <table id="datatable-responsive-basic" class="table table-striped table-bordered dt-responsive"
                        cellspacing="0" width="100%">
                     <thead>

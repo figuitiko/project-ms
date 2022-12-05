@@ -24,6 +24,8 @@ class EnterpriseController extends Controller
     private $quizzedRepository;
 
     private $appliedGuideRepository;
+    
+    private $year;
 
 
     /**
@@ -38,6 +40,16 @@ class EnterpriseController extends Controller
         $this->middleware('auth');
         $this->quizzedRepository = $quizzedRepository;
         $this->appliedGuideRepository = $appliedGuideRepository;
+        $url = parse_url($_SERVER['REQUEST_URI']);
+        // extract the last four characters of the url
+        $year = substr($url['path'], -4);
+        //validate if the string $year  is a year or not
+        if (preg_match('/^[0-9]{4}$/', $year)) {
+            $this->year = $year;
+        } else {
+            $this->year = date('Y');
+        }      
+
     }
 
     /**
@@ -144,10 +156,10 @@ class EnterpriseController extends Controller
 
 
 
-        $quizzedsYes= $this->quizzedRepository->quizzedsYesByEnterprise($enterprise->id );
+        $quizzedsYes= $this->quizzedRepository->quizzedsYesByEnterprise($enterprise->id, $year );
 
 
-        $quizzedWithTotal = $this->quizzedRepository->quizzedsYesWithTotal($enterprise->id);
+        $quizzedWithTotal = $this->quizzedRepository->quizzedsYesWithTotal($enterprise->id, $year);
 
        // dd($appliedGuides->where('guide_id', 3)->count());
 
@@ -358,10 +370,12 @@ class EnterpriseController extends Controller
             ->with('message', 'La Empresa ha sido Eliminada');
     }
 
-    public function chart($id){
+    public function chart(Request $request, $id){
+
+        
 
 
-        $quizzedWithTotal= $this->quizzedRepository->quizzedsYesWithTotal($id);
+        $quizzedWithTotal= $this->quizzedRepository->quizzedsYesWithTotal($id,$this->year);
         return response()->json($quizzedWithTotal);
     }
 

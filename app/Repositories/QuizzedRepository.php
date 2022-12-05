@@ -17,7 +17,7 @@ namespace App\Repositories;
              {
                  $this->quizzed = $quizzed;
              }
-             public function quizzedsYesByEnterprise($enterpriseId)
+             public function quizzedsYesByEnterprise($enterpriseId, $year)
              {
                 return DB::table('quizzeds')
                     ->join('applied_guides', 'quizzeds.id', '=','applied_guides.quizzed_id')
@@ -26,10 +26,11 @@ namespace App\Repositories;
                     ->join('questions','questions.id', '=','given_replies.question_id' )
                     ->select('quizzeds.name', 'quizzeds.last_name', DB::raw('replies.content as contentReply' ), 'questions.content')
                     ->where('quizzeds.enterprise_id',$enterpriseId  )
+                    ->whereYear('quizzeds.created_at', '=', $year)
                     ->having('contentReply','=','Si')
                     ->get();
              }
-             public  function quizzedsYesWithTotal($enterpriseId){
+             public  function quizzedsYesWithTotal($enterpriseId,$year){
                 return  DB::table('quizzeds')
                     ->join('applied_guides', 'quizzeds.id', '=','applied_guides.quizzed_id')
                     ->join('given_replies','given_replies.applied_guide_id','=','applied_guides.id' )
@@ -37,6 +38,7 @@ namespace App\Repositories;
                     ->join('questions','questions.id', '=','given_replies.question_id' )
                     ->select('quizzeds.name', 'quizzeds.last_name','replies.content', DB::raw('count(quizzeds.name) as total'))
                     ->where('quizzeds.enterprise_id',$enterpriseId )
+                    ->whereYear('quizzeds.created_at', '=', $year)
                     ->groupBy('quizzeds.name', 'quizzeds.last_name','replies.content')
                     ->having('replies.content','=','Si')
                     ->get();
