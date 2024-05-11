@@ -28,7 +28,7 @@ class AppliedGuideRepository implements AppliedGuideRepositoryInterface
             ->where('applied_guides.enterprise_id','=',$enterpriseId)
             // where created_at is the current year
             ->whereYear('applied_guides.created_at', '=', $year)            
-            ->where('applied_guides.guide_id','=',$guideId)
+            // ->where('applied_guides.guide_id','=',$guideId)
             ->whereIn('questions.number',$valuesToCompare)
             ->first();
     }
@@ -39,7 +39,7 @@ class AppliedGuideRepository implements AppliedGuideRepositoryInterface
             ->select(DB::raw('sum(given_replies.value) as result'))
             ->where('applied_guides.enterprise_id','=',$enterpriseId)
              ->whereYear('applied_guides.created_at', '=', $year)
-            ->where('applied_guides.guide_id','=',$guideId)
+            // ->where('applied_guides.guide_id','=',$guideId)
             ->first();
     }
     public function questionRepliesReport($enterpriseId,$guideId,Array $valuesToCompare, $year){
@@ -50,17 +50,16 @@ class AppliedGuideRepository implements AppliedGuideRepositoryInterface
             ->select('applied_guides.id', 'applied_guides.guide_id',DB::raw('questions.content as question'), 'questions.number','replies.content','given_replies.value')
             ->where('applied_guides.enterprise_id','=',$enterpriseId)
             ->whereYear('applied_guides.created_at', '=', $year)
-            ->where('applied_guides.guide_id','=',$guideId)
+            // ->where('applied_guides.guide_id','=',$guideId)
             ->whereIn('questions.number',$valuesToCompare)
             ->get();
     }
-    public function getGuideAmount($enterpriseId,$guideId, $year){
-        
+    public function getGuideAmount($enterpriseId, $year){        
         return DB::table('applied_guides')          
             ->select(DB::raw('count(applied_guides.id) as result'))
             ->where('applied_guides.enterprise_id','=',$enterpriseId)
-            ->whereYear('applied_guides.created_at', '=', $year)
-            ->where('applied_guides.guide_id','=',$guideId)
+             ->whereYear('applied_guides.created_at', '=', $year)
+            //  ->where('applied_guides.guide_id','=',$guideId)
             ->first();
     }
 }

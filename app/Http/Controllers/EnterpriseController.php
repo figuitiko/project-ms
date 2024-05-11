@@ -137,7 +137,7 @@ class EnterpriseController extends Controller
     {
         $url = parse_url($_SERVER['REQUEST_URI']);
         // extract the last four characters of the url
-        $year = substr($url['path'], -4);
+        $year = substr($url['path'], -4);      
         
 
         
@@ -145,6 +145,7 @@ class EnterpriseController extends Controller
         $counter=1;
       //  dd($enterprise);
        $appliedGuides= AppliedGuide::where('enterprise_id',$enterprise->id)->get();
+       
        $givenReplies = DB::table('given_replies')
                         ->join('applied_guides','given_replies.id','=', 'given_replies.applied_guide_id')
                          ->get();
@@ -174,10 +175,13 @@ class EnterpriseController extends Controller
 
         $guideReportValues=[];
         $guideBelong= 1;        
-        $guide2Amount = $this->appliedGuideRepository->getGuideAmount($enterprise->id, 2, $year);
-        $guide2Amount = $guide2Amount->result;
-
-        if( ($guide2Amount> 0)){
+        
+        $guideAmount = $this->appliedGuideRepository->getGuideAmount($enterprise->id, $year);
+        $guideAmount = $guideAmount->result;       
+        
+         
+        if( ($guideAmount >  0 && ($enterprise->worker_amount >= 16 && $enterprise->worker_amount <= 50 ))){      
+                   
             $reportData= [ 'workEnvironmentAvgCat'=>[2,1,3],
                 'workCondDomainAvg' =>[2,1,3],
                 'dangerConditionsDimAvg' =>[2],
@@ -212,19 +216,19 @@ class EnterpriseController extends Controller
                 'workViolenceDimAvg'=>[33, 34, 35, 36, 37, 38, 39, 40],
 
             ];
-            $guideReportValues =   $this->guideValues($guide2Amount, $enterprise->id, 2,
+            $guideReportValues =   $this->guideValues($guideAmount, $enterprise->id, 2,
                 $reportData, $year);
-
+            
             $guideBelong = 2;
         }
-        $guide3Amount = $this->appliedGuideRepository->getGuideAmount($enterprise->id, 3, $year);
-        $guide3Amount = $guide3Amount->result;
-        // dd($guide3Amount->result);
-        // $guide3Amount = $appliedGuides->where('guide_id',3)->whereYear('created_at', '=', date('Y'))->count();
-        // dd($guide3Amount);
+              
+        // dd($guideAmount->result);
+        // $guideAmount = $appliedGuides->where('guide_id',3)->whereYear('created_at', '=', date('Y'))->count();
+        // dd($guideAmount);
         // dd($enterprise->guides()->get()->contains('id',3) );
-        // dd($guide3Amount);
-        if(  ($guide3Amount > 0)){
+        // dd($guideAmount);
+        if(  ($guideAmount > 0 && $enterprise->worker_amount >50)){
+            
             $reportData= [ 'workEnvironmentAvgCat'=>[1,3,2,4,5],
                 'workCondDomainAvg' =>[1,3,2,4,5],
                 'dangerConditionsDimAvg' =>[1, 3],
@@ -268,12 +272,13 @@ class EnterpriseController extends Controller
                 ];
 
             $guideReportValues =   $this->guideValues(
-                $guide3Amount,
+                $guideAmount,
                 $enterprise->id,
                 3,
                 $reportData,
                 $year
             );
+            
                 
             $guideBelong = 3;
 
@@ -285,15 +290,20 @@ class EnterpriseController extends Controller
       //dd($categoryWorkEnvironment->result);
 
      // dd($guideReportValues);
+     if(!empty($guideReportValues) && !empty($guideAmount)){
 
-        return view('enterprise.show', ['enterprise' => $enterprise,
-                                                'counter'=>$counter,
-                                                'givenReplies'=>$givenReplies,
-                                                'quizzedsYes'=>$quizzedsYes,
-                                                'quizzedWithTotal'=>$quizzedWithTotal,
-                                                'guideReportValues' =>$guideReportValues,
-                                                'guideBelong'=>$guideBelong
-                                                    ]);
+         return view('enterprise.show', ['enterprise' => $enterprise,
+                                                 'counter'=>$counter,
+                                                 'givenReplies'=>$givenReplies,
+                                                 'quizzedsYes'=>$quizzedsYes,
+                                                 'quizzedWithTotal'=>$quizzedWithTotal,
+                                                 'guideReportValues' =>$guideReportValues,
+                                                 'guideBelong'=>$guideBelong
+                                                     ]);
+     }else{
+        return view('enterprise.noDataYear');
+     }
+
     }
 
     /**

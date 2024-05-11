@@ -43,8 +43,10 @@
                                         <td>{{$enterprise->social_reason}}</td>
                                         <td>{{$enterprise->surveyed_amount}}</td>
                                         <td>{{$enterprise->worker_amount}}</td>
-                                        <td>                                            
-                                            <select name="year" id="year" class="form-control year">   
+                                        <td>       
+                                            
+                                        
+                                            <select name="year" id="year" class="form-control year" onchange="" >   
                                             <option>Seleccione un Año</option>                                             
                                                 <option value="2020">2020</option>
                                                 <option value="2021">2021</option>
