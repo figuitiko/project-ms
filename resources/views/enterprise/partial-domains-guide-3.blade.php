@@ -620,7 +620,7 @@
                 <td>{{$guideReportValues['fewFeedbackPerformanceDimAvg']}}</td>
             </tr>
             <tr>
-                <td>Escasa o nula retroalimentación del desempeño</td>
+                <td>Escasa o nulo reconocimiento y compesación</td>
                 <td>{{$guideReportValues['fewRecognitionDim']}}</td>
             </tr>
 
@@ -685,11 +685,11 @@
                 <th>Valor</th>
             </tr>
             <tr>
-                <td>Escasa o nula retroalimentación del desempeño</td>
+                <td>Limitado sentido de pertenencia</td>
                 <td>{{$guideReportValues['limitBelongingFeelingDimAvg']}}</td>
             </tr>
             <tr>
-                <td>Escasa o nula retroalimentación del desempeño</td>
+                <td>Inestabilidad laboral</td>
                 <td>{{$guideReportValues['unstableWorkSituationAvg']}}</td>
             </tr>
 
